@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineApp - Seleccionar Entradas</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/reserva.css">
+</head>
+<body class="body-reserva">
+
+  <!-- MODAL BIFURCACIÓN SESIÓN / INVITADO -->
+  <div id="modal-cinefilitos" class="capa-overlay-modal">
+    <div class="tarjeta-modal-login">
+      <h2>¿Ya eres parte de los Cinefilitos?</h2>
+      <div class="grupo-botones-modal">
+        <a href="registro.html" class="btn-modal-naranja">INICIAR SESIÓN</a>
+        <a href="registro.html" class="btn-modal-naranja">REGISTRARTE</a>
+      </div>
+      <button type="button" class="btn-invitado-link" onclick="cerrarModalInvitado()">COMPRA COMO INVITADO</button>
+    </div>
+  </div>
+
+  <!-- Header Superior Estático -->
+  <header class="header-reserva">
+    <div class="contenedor-nav-reserva">
+      <a href="index.html" class="logo">CINE<span>APP</span></a>
+      
+      <nav class="pasos-compra-header">
+        <span class="paso-item activo" id="paso-hdr-1">ENTRADAS</span>
+        <span class="flecha">&gt;</span>
+        <span class="paso-item" id="paso-hdr-2">ASIENTOS</span>
+        <span class="flecha">&gt;</span>
+        <span class="paso-item" id="paso-hdr-3">PAGO</span>
+        <span class="flecha">&gt;</span>
+        <span class="paso-item" id="paso-hdr-4">CONFIRMACIÓN</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner con Contenedor Compacto de Proporción Elegante -->
+  <section class="banner-reserva-pelicula">
+    <div class="contenedor-reserva-info">
+      <div class="mini-poster-cuadrado">
+        <img src="assets/img/poster-resident-evil.jpg" alt="Poster Resident Evil" onerror="this.src='https://picsum.photos/id/1015/120/170'">
+      </div>
+      <div class="detalles-reserva-pelicula">
+        <h1 id="reserva-titulo-pelicula">Resident Evil: Noche Cero Dob</h1>
+        <p class="cine-sala" id="reserva-cine-sala">CINEFILO METROMALL, SALA 8</p>
+        <p class="fecha-hora" id="reserva-fecha-hora">sábado, 03/10/2026 03:50 p. m.</p>
+        <p class="clasificacion" id="reserva-clasificacion">Clasificación: B15</p>
+      </div>
+    </div>
+  </section>
+
+ <!-- Área Principal de Pasos de Reserva (SPA) -->
+  <main class="contenedor-pasos-reserva">
+
+    <!-- ==========================================
+         PASO 1: SELECCIONAR ENTRADAS (Activo al inicio)
+         ========================================== -->
+    <section id="paso-1" class="seccion-paso-reserva activo">
+      
+      <h2 class="titulo-paso">Seleccione sus entradas</h2>
+
+      <div class="caja-notificacion-servicio">
+        Se cobra un costo por servicio por cada entrada comprada
+      </div>
+
+      <!-- Tarjetas de Boletos -->
+      <div class="lista-boletos">
+        
+        <div class="tarjeta-boleto-item">
+          <div class="info-boleto-det">
+            <h3>ADULTO</h3>
+            <p class="precio-boleto">$6.50</p>
+            <p class="cargo-servicio">Cargo por Servicio: <strong>$0.40</strong></p>
+          </div>
+          <div class="controles-boletos-cantidad">
+            <button type="button" class="btn-circulo-restar" onclick="cambiarCantidadBoleto('adulto', -1)">—</button>
+            <span class="valor-cantidad" id="cant-adulto">0</span>
+            <button type="button" class="btn-circulo-sumar" onclick="cambiarCantidadBoleto('adulto', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="tarjeta-boleto-item">
+          <div class="info-boleto-det">
+            <h3>NIÑOS (1-12 AÑOS)</h3>
+            <p class="precio-boleto">$5.25</p>
+            <p class="cargo-servicio">Cargo por Servicio: <strong>$0.40</strong></p>
+          </div>
+          <div class="controles-boletos-cantidad">
+            <button type="button" class="btn-circulo-restar" onclick="cambiarCantidadBoleto('nino', -1)">—</button>
+            <span class="valor-cantidad" id="cant-nino">0</span>
+            <button type="button" class="btn-circulo-sumar" onclick="cambiarCantidadBoleto('nino', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="tarjeta-boleto-item">
+          <div class="info-boleto-det">
+            <h3>3 ERA EDAD</h3>
+            <p class="precio-boleto">$3.25</p>
+            <p class="cargo-servicio">Cargo por Servicio: <strong>$0.40</strong></p>
+          </div>
+          <div class="controles-boletos-cantidad">
+            <button type="button" class="btn-circulo-restar" onclick="cambiarCantidadBoleto('tercera', -1)">—</button>
+            <span class="valor-cantidad" id="cant-tercera">0</span>
+            <button type="button" class="btn-circulo-sumar" onclick="cambiarCantidadBoleto('tercera', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="tarjeta-boleto-item">
+          <div class="info-boleto-det">
+            <h3>DISCAPACITADO</h3>
+            <p class="precio-boleto">$3.25</p>
+            <p class="cargo-servicio">Cargo por Servicio: <strong>$0.40</strong></p>
+          </div>
+          <div class="controles-boletos-cantidad">
+            <button type="button" class="btn-circulo-restar" onclick="cambiarCantidadBoleto('discap', -1)">—</button>
+            <span class="valor-cantidad" id="cant-discap">0</span>
+            <button type="button" class="btn-circulo-sumar" onclick="cambiarCantidadBoleto('discap', 1)">+</button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+<!-- PASO 2: SELECCIÓN DE ASIENTOS DE CINE -->
+    <section id="paso-2" class="seccion-paso-reserva oculto">
+      
+      <div class="cabecera-sala">
+        <h2 class="titulo-sala">SALA 8</h2>
+        <div class="pantalla-cine">pantalla</div>
+      </div>
+
+      <!-- Mapa Dinámico de Butacas Realistas -->
+      <div class="contenedor-mapa-sala" id="mapa-asientos-container"></div>
+
+      <!-- Leyenda Interactiva con Tooltips Informativos -->
+      <div class="leyenda-asientos">
+        
+        <div class="item-leyenda" data-tooltip="Asiento libre listo para ser seleccionado por el cliente.">
+          <span class="icono-asiento disponible"></span>
+          <span>Disponible</span>
+        </div>
+
+        <div class="item-leyenda" data-tooltip="Este asiento ya ha sido comprado o reservado por otro cliente.">
+          <span class="icono-asiento reservado"></span>
+          <span>Reservado</span>
+        </div>
+
+        <div class="item-leyenda" data-tooltip="Asiento(s) actualmente elegidos para tu compra.">
+          <span class="icono-asiento seleccion"></span>
+          <span>Su selección</span>
+        </div>
+
+        <div class="item-leyenda tooltip-especial" data-tooltip="Este asiento es de uso exclusivo para el acompañante de una persona en silla de ruedas que ocupe el espacio ubicado a su lado.">
+          <span class="icono-asiento discapacidad">♿</span>
+          <span>Asiento de acompañante</span>
+          <!-- Globlito flotante de explicación estilo Cinépolis -->
+          <div class="globo-tooltip">
+            Este asiento es de uso exclusivo para el acompañante de una persona en silla de ruedas que ocupe el espacio ubicado a su lado.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="caja-notificacion-servicio">
+        Si cuentas con un cupón, podrás canjearlo en la siguiente pantalla.
+      </div>
+
+    </section>
+
+  </main>
+
+  </main>
+
+  <!-- BARRA STICKY INFERIOR CON BOTONES DE ANCHO CONTROLADO -->
+  <div class="barra-sticky-resumen">
+    <div class="contenedor-sticky-interior">
+      
+      <div class="resumen-tickets-info">
+        <span id="txt-tickets-contador">0 Tickets seleccionados</span>
+        <span class="monto-total-resumen" id="txt-monto-total">$0.00</span>
+      </div>
+      
+      <div class="grupo-botones-pie">
+        <button type="button" class="btn-accion-regresar" id="btn-regresar-cancelar" onclick="ejecutarAccionRegresar()">
+          <span id="texto-regresar">REGRESAR</span>
+        </button>
+        
+        <button type="button" class="btn-accion-continuar deshabilitado" id="btn-continuar-asientos" onclick="avanzarAAsientos()">
+          CONTINUAR
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/reserva.js"></script>
+</body>
+</html>

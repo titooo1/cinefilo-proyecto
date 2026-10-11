@@ -1,0 +1,54 @@
+:root {
+  --bg-header: #030712;
+  --bg-cuerpo: #0f172a;
+  --bg-tarjeta: #1e293b;
+  --bg-campo: #111827;
+  --color-texto: #f8fafc;
+  --color-mutado: #94a3b8;
+  --color-primario: #e11d48;
+  --color-primario-hover: #be123c;
+  --color-secundario: #1e293b;
+  --color-borde: #1f2937;
+  --color-naranja-cinepolis: #ea580c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+body { background-color: var(--bg-cuerpo); color: var(--color-texto); min-height: 100vh; display: flex; flex-direction: column; }
+
+.oculto { display: none !important; }
+.activo { display: block; }
+
+/* HEADER QUE BAJA CONTIGO (STICKY) */
+/* HEADER UNIFICADO AL CONTENIDO */
+/* HEADER CON ALINEACIÓN RESTRINGIDA A 1050PX */
+.barra-navegacion {
+  background-color: var(--bg-header);
+  padding: 1.2rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contenedor-nav {
+  /* Ancho exactamente igual al contenedor de la página para alineación perfecta */
+  max-width: 1050px; 
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo { font-size: 1.5rem; font-weight: 800; color: #ffffff; text-decoration: none; }
+.logo span { color: var(--color-primario); }
+
+.enlace-nav { color: var(--color-texto); text-decoration: none; margin-right: 1.5rem; font-weight: 500; }
+.icono-usuario { color: var(--color-texto); display: flex; align-items: center; transition: color 0.2s ease; padding: 0.5rem; text-decoration: none; }
+.icono-usuario:hover { color: var(--color-primario); }
+.icono-usuario svg { width: 26px; height: 26px; }
+
+.boton { padding: 0.75rem 1.25rem; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; text-align: center; }
+.boton-primario { background-color: var(--color-primario); color: #ffffff; }
+.boton-primario:hover { background-color: var(--color-primario-hover); }
+.boton-bloque { width: 100%; display: block; }

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineApp - Cartelera</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/cartelera.css">
+</head>
+<body>
+
+  <!-- Barra de Navegación Principal -->
+  <header class="barra-navegacion">
+    <div class="contenedor-nav">
+      <a href="index.html" class="logo">CINE<span>APP</span></a>
+      
+      <div class="acciones-usuario">
+        <a href="registro.html" class="icono-usuario" title="Iniciar Sesión">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Carrusel de Banners Automáticos y Deslizables (Sin flechas) -->
+    <section class="contenedor-carrusel" id="contenedor-carrusel">
+      <div class="diapositivas-carrusel" id="pista-carrusel">
+        <div class="diapositiva">
+          <img src="assets/img/bannerRE_peli.jpg" alt="BANNER PROMOCIONAL RESIDENT EVIL" onerror="this.style.display='none'">
+        </div>
+        <div class="diapositiva">
+          <img src="assets/img/cocardoelregreso.jpg" alt="COCARDO EL REGRESO" onerror="this.style.display='none'">
+        </div>
+        <div class="diapositiva">
+          <img src="assets/img/avengerendgame.jpg" alt="AVENGERS ENDGAME" onerror="this.style.display='none'">
+        </div>
+        <div class="diapositiva">
+          <img src="assets/img/banner-4.jpg" alt="Promoción 4" onerror="this.style.display='none'">
+        </div>
+        <div class="diapositiva">
+          <img src="assets/img/donchepoelregreso.jpg" alt="DON CHEPO EL REGRESO" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenedor del Cuerpo con Fondo Diferenciado -->
+    <div class="seccion-contenido-cartelera">
+      <div class="contenedor-principal">
+        
+        <!-- Pestañas Centradas -->
+        <section class="seccion-filtros">
+          <div class="contenedor-pestanas">
+            <button class="boton-pestana activo" data-pestana="cartelera">Elegir película</button>
+            <button class="boton-pestana" data-pestana="preventa">Preventa</button>
+          </div>
+        </section>
+
+        <!-- Cuadrícula de Películas -->
+        <section class="seccion-peliculas">
+          <div id="cuadricula-peliculas" class="cuadricula-peliculas">
+
+            <!-- ==========================================
+                 Pestaña: ELEGIR PELÍCULA (5 Películas)
+                 ========================================== -->
+            
+            <!-- Película 1 -->
+            <article class="tarjeta-pelicula" data-categoria="cartelera">
+              <a href="detalle.html?pelicula_id=101" class="enlace-pelicula">
+                <div class="contenedor-poster">
+                  <img src="assets/img/poster-oasis.jpg" alt="Oasis" onerror="this.src='https://picsum.photos/id/1082/326/468'">
+                </div>
+                <div class="info-pelicula">
+                  <h3>Oasis: Don't Look Back In Anger</h3>
+                  <p class="datos-meta">B | 122 Minutos</p>
+                </div>
+              </a>
+            </article>
+
+            <!-- Película 2 -->
+            <article class="tarjeta-pelicula" data-categoria="cartelera">
+              <a href="detalle.html?pelicula_id=102" class="enlace-pelicula">
+                <div class="contenedor-poster">
+                  <img src="assets/img/poster-robot-salvaje.jpg" alt="Robot Salvaje" onerror="this.src='https://picsum.photos/id/1060/326/468'">
+                </div>
+                <div class="info-pelicula">
+                  <h3>Robot Salvaje</h3>
+                  <p class="datos-meta">AA | 102 Minutos</p>
+                </div>
+              </a>
+            </article>
+
+            <!-- Película 3 -->
+            <article class="tarjeta-pelicula" data-categoria="cartelera">
+              <a href="detalle.html?pelicula_id=103" class="enlace-pelicula">
+                <div class="contenedor-poster">
+                  <img src="assets/img/poster-venom.jpg" alt="Venom: El Último Baile" onerror="this.src='https://picsum.photos/id/1070/326/468'">
+                </div>
+                <div class="info-pelicula">
+                  <h3>Venom: El Último Baile</h3>
+                  <p class="datos-meta">B15 | 109 Minutos</p>
+                </div>
+              </a>
+            </article>
+
+            <!-- Película 4 -->
+            <article class="tarjeta-pelicula" data-categoria="cartelera">
+              <a href="detalle.html?pelicula_id=104" class="enlace-pelicula">
+                <div class="contenedor-poster">
+                  <img src="assets/img/poster-gladiador.jpg" alt="Gladiador 2" onerror="this.src='https://picsum.photos/id/1010/326/468'">
+                </div>
+                <div class="info-pelicula">
+                  <h3>Gladiador II</h3>
+                  <p class="datos-meta">C | 148 Minutos</p>
+                </div>
+              </a>
+            </article>
+
+            <!-- Película 5 (Esta bajará automáticamente a la siguiente fila) -->
+            <article class="tarjeta-pelicula" data-categoria="cartelera">
+              <a href="detalle.html?pelicula_id=105" class="enlace-pelicula">
+                <div class="contenedor-poster">
+                  <img src="assets/img/poster-wicked.jpg" alt="Wicked" onerror="this.src='https://picsum.photos/id/1020/326/468'">
+                </div>
+                <div class="info-pelicula">
+                  <h3>Wicked</h3>
+                  <p class="datos-meta">A | 160 Minutos</p>
+                </div>
+              </a>
+            </article>
+
+            <!-- ==========================================
+                 Pestaña: PREVENTA (4 Películas con barra azul)
+                 ========================================== -->
+
+            <!-- Preventa 1 -->
+            <article class="tarjeta-pelicula oculto" data-categoria="preventa">
+              <a href="detalle.html?pelicula_id=201" class="enlace-pelicula">
+                <div class="contenedor-poster">
+                  <img src="assets/img/poster-avengers.jpg" alt="Avengers Doomsday" onerror="this.src='https://picsum.photos/id/1015/326/468'">
+                  <div class="franja-preventa">Preventa</div>
+                </div>
+                <div class="info-pelicula">
+                  <h3>Avengers: Doomsday IFV</h3>
+                  <p class="datos-meta">B | 165 Minutos</p>
+                </div>
+              </a>
+            </article>
+
+            <!-- Preventa 2 -->
+            <article class="tarjeta-pelicula oculto" data-categoria="preventa">
+              <a href="detalle.html?pelicula_id=202" class="enlace-pelicula">
+                <div class="contenedor-poster">
+                  <img src="assets/img/poster-linkin.jpg" alt="Linkin Park" onerror="this.src='https://picsum.photos/id/1025/326/468'">
+                  <div class="franja-preventa">Preventa</div>
+                </div>
+                <div class="info-pelicula">
+                  <h3>Linkin Park: Unshatter En Cines</h3>
+                  <p class="datos-meta">B | 120 Minutos</p>
+                </div>
+              </a>
+            </article>
+
+            <!-- Preventa 3 -->
+            <article class="tarjeta-pelicula oculto" data-categoria="preventa">
+              <a href="detalle.html?pelicula_id=203" class="enlace-pelicula">
+                <div class="contenedor-poster">
+                  <img src="assets/img/poster-madoka.jpg" alt="Madoka Magica" onerror="this.src='https://picsum.photos/id/1035/326/468'">
+                  <div class="franja-preventa">Preventa</div>
+                </div>
+                <div class="info-pelicula">
+                  <h3>Puella Magi Madoka Magica: Walpurgisnacht</h3>
+                  <p class="datos-meta">B15 | 115 Minutos</p>
+                </div>
+              </a>
+            </article>
+
+            <!-- Preventa 4 -->
+            <article class="tarjeta-pelicula oculto" data-categoria="preventa">
+              <a href="detalle.html?pelicula_id=204" class="enlace-pelicula">
+                <div class="contenedor-poster">
+                  <img src="assets/img/poster-verity.jpg" alt="Verity" onerror="this.src='https://picsum.photos/id/1045/326/468'">
+                  <div class="franja-preventa">Preventa</div>
+                </div>
+                <div class="info-pelicula">
+                  <h3>Verity: La sombra de un engaño</h3>
+                  <p class="datos-meta">C | 130 Minutos</p>
+                </div>
+              </a>
+            </article>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="js/cartelera.js"></script>
+</body>
+</html>

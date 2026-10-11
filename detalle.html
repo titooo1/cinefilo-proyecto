@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineApp - Detalles de Película</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/detalle.css">
+</head>
+<body>
+
+  <!-- Header Sticky -->
+  <header class="barra-navegacion">
+    <div class="contenedor-nav">
+      <a href="index.html" class="logo">CINE<span>APP</span></a>
+      <div class="acciones-usuario">
+        <a href="registro.html" class="icono-usuario" title="Iniciar Sesión">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+<main class="contenedor-principal seccion-detalle">
+    
+    <!-- Migas de pan (Breadcrumb) -->
+    <nav class="migas-pan">
+      <a href="index.html">Inicio</a> &gt; <span>Resident Evil: Noche Cero</span>
+    </nav>
+
+    <!-- Fila Superior: Presentación de Película -->
+    <section class="pelicula-presentacion">
+      
+      <!-- Columna Izquierda: Información de la película -->
+      <div class="pelicula-info">
+        <h1 class="titulo-pelicula">Resident Evil: Noche Cero</h1>
+        
+        <p class="etiquetas-meta">
+          Clasificación B15 <span class="separador-naranja">|</span> 
+          1:35 Horas <span class="separador-naranja">|</span> 
+          DOB <span class="separador-naranja">|</span> 
+          2D <span class="separador-naranja">|</span> 
+          SUBTITLE <span class="separador-naranja">|</span> 
+          VIP
+        </p>
+        
+        <hr class="divisor-fino">
+        
+        <p class="sinopsis">
+          De la mente del visionario cineasta Zach Cregger (Weapons, Barbarian) llega una emocionante —y aterradora— reinvención de la franquicia Resident Evil. En una historia completamente nueva, Resident Evil sigue a Bryan (Austin Abrams), un mensajero médico que, sin saberlo, se ve envuelto en una carrera por la supervivencia llena de acción y sin tregua cuando una noche fatídica y espantosa se convierte en un caos a su alrededor.
+        </p>
+
+        <div class="tabla-tecnica">
+          <div class="fila-tecnica"><span class="label-tecnica">Fecha de estreno:</span> <span>2026-09-17</span></div>
+          <div class="fila-tecnica"><span class="label-tecnica">Título original:</span> <span>Resident Evil: Noche Cero</span></div>
+          <div class="fila-tecnica"><span class="label-tecnica">Género:</span> <span>ACCION, TERROR</span></div>
+          <div class="fila-tecnica"><span class="label-tecnica">Reparto:</span> <span>Austin Abrams, Zach Cherry, Kali Reis</span></div>
+          <div class="fila-tecnica"><span class="label-tecnica">Director:</span> <span>Zach Cregger</span></div>
+          <div class="fila-tecnica"><span class="label-tecnica">Producción:</span> <span>-</span></div>
+          <div class="fila-tecnica"><span class="label-tecnica">Restricciones de edad:</span> <span>B15</span></div>
+          <div class="fila-tecnica"><span class="label-tecnica">En exhibición en:</span> <span>DOB | 2D | SUBTITLE | VIP</span></div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Botón superior + Imagen Cuadrada de Poster -->
+      <div class="pelicula-columna-derecha">
+        <!-- Botón que desplaza suavemente hacia los filtros de cine -->
+        <button type="button" class="btn-ir-reservar" id="btn-ir-reservar">IR A RESERVAR</button>
+        
+        <div class="contenedor-poster-cuadrado">
+          <img src="assets/img/poster-resident-evil.jpg" alt="Poster Resident Evil" onerror="this.src='https://picsum.photos/id/1015/300/420'">
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Fila Inferior: Selectores para desplegar horarios -->
+    <section class="filtros-horario" id="seccion-filtros-cine">
+      
+      <!-- 1. Seleccionar Cine -->
+      <div class="bloque-filtro">
+        <h3>SELECCIONAR CINE</h3>
+        <select id="selector-cine" class="input-desplegable">
+          <option value="" disabled selected>Elegir un cine</option>
+          <option value="donbosco">CINEFILO DON BOSCO</option>
+          <option value="colon">CINEFILO COLON</option>
+          <option value="metromall">CINEFILO METROMALL</option>
+        </select>
+      </div>
+
+      <!-- 2. Opciones Especiales -->
+      <div class="bloque-filtro">
+        <h3>SELECCIONE OPCIONES ESPECIALES DE VISUALIZACIÓN</h3>
+        <div class="grupo-botones" id="grupo-formato">
+          <button type="button" class="btn-opcion" data-valor="2D">2D</button>
+          <button type="button" class="btn-opcion" data-valor="SUBTITLE">SUBTITLE</button>
+        </div>
+      </div>
+
+      <!-- 3. Seleccionar Fecha -->
+      <div class="bloque-filtro">
+        <h3>SELECCIONE LA FECHA</h3>
+        <div class="grupo-botones" id="grupo-fecha">
+          <button type="button" class="btn-icono-calendario" title="Calendario">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </button>
+          <button type="button" class="btn-opcion btn-fecha" data-valor="jue"><strong>jue</strong><span>08/10</span></button>
+          <button type="button" class="btn-opcion btn-fecha" data-valor="vie"><strong>vie</strong><span>09/10</span></button>
+          <button type="button" class="btn-opcion btn-fecha" data-valor="sab"><strong>sáb</strong><span>10/10</span></button>
+          <button type="button" class="btn-opcion btn-fecha" data-valor="dom"><strong>dom</strong><span>11/10</span></button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Bloque Dinámico: Horarios Disponibles -->
+    <section id="horarios-disponibles" class="horarios-disponibles oculto">
+      <div class="cabecera-horarios">
+        <h2>HORARIO DISPONIBLE</h2>
+        <p>Seleccione y continúe con el pago</p>
+      </div>
+
+      <div class="cine-resultado">
+        <h3 id="nombre-cine-resultado">CINEFILO DON BOSCO</h3>
+        <p class="direccion-cine" id="direccion-cine-resultado">Plaza Don Bosco, Local 4, Panamá</p>
+        
+        <div class="etiquetas-formatos-cine">
+          <svg class="icono-camara" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          <span>3D</span> <span class="separador-naranja">|</span>
+          <span>2D</span> <span class="separador-naranja">|</span>
+          <span>DOB</span> <span class="separador-naranja">|</span>
+          <span>4DX</span> <span class="separador-naranja">|</span>
+          <span>IMAX</span> <span class="separador-naranja">|</span>
+          <span>Infinity Vision</span> <span class="separador-naranja">|</span>
+          <span>SUBTITLE</span>
+        </div>
+        
+        <div class="bloque-formato-hora">
+          <h4 id="formato-resultado">2D SUBTITLE</h4>
+          <div class="grupo-horas">
+            <a href="reserva.html?hora=15:15" class="btn-hora">03:15 PM</a>
+            <a href="reserva.html?hora=17:45" class="btn-hora">05:45 PM</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/detalle.js"></script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+/* ==========================================
+   PÁGINA DE DETALLES - ALINEACIÓN DE MARCAS
+   ========================================== */
+
+/* Contenedor Principal Limitado */
+.contenedor-principal {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.seccion-detalle {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+/* Breadcrumb */
+.migas-pan {
+  color: var(--color-mutado);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.migas-pan a { color: var(--color-mutado); text-decoration: none; }
+.migas-pan a:hover { color: #ffffff; }
+.migas-pan span { color: #ffffff; }
+
+/* --- PRESENTACIÓN DE PELÍCULA --- */
+.pelicula-presentacion {
+  display: grid;
+  grid-template-columns: 1fr 300px; /* Columna derecha de 300px estricta */
+  gap: 3.5rem;
+  align-items: start;
+  /* REDUCCIÓN DE ESPACIO INFERIOR: Reduce la separación gigantesca que se veía antes */
+  padding-bottom: 1.5rem; 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 1rem; 
+}
+
+.pelicula-info {
+  width: 100%;
+}
+
+.titulo-pelicula {
+  font-size: 2.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+/* Metadatos (Alineados con el botón de la derecha) */
+.etiquetas-meta {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  height: 42px; /* Mismo alto del botón de la derecha para forzar alineación nivelada */
+}
+
+.separador-naranja {
+  color: var(--color-naranja-cinepolis);
+  font-weight: 400;
+  margin: 0 0.4rem;
+}
+
+.divisor-fino {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 1.8rem;
+}
+
+.sinopsis {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+  max-width: 650px;
+}
+
+/* Ficha Técnica */
+.tabla-tecnica {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.fila-tecnica {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  font-size: 0.92rem;
+}
+
+.label-tecnica { color: var(--color-mutado); }
+.fila-tecnica span:last-child { color: #ffffff; }
+
+/* --- COLUMNA DERECHA: ALINEACIÓN MORADA CON CLASIFICACIÓN --- */
+.pelicula-columna-derecha {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 300px;
+  /* El truco mágico: Bajamos la columna para que el botón arranque justo en la línea morada */
+  margin-top: 4.2rem; 
+}
+
+/* Botón IR A RESERVAR al nivel de la línea morada */
+.btn-ir-reservar {
+  width: 100%;
+  height: 42px; /* Mismo alto que la fila .etiquetas-meta */
+  background-color: var(--color-naranja-cinepolis);
+  color: #ffffff;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.btn-ir-reservar:hover {
+  background-color: #c2410c;
+}
+
+.btn-ir-reservar:active {
+  transform: scale(0.98);
+}
+
+/* Imagen Cuadrada de la Película justo debajo del botón */
+.contenedor-poster-cuadrado {
+  width: 100%;
+  aspect-ratio: 300 / 420;
+  overflow: hidden;
+  border-radius: 0 !important; /* Bordes cuadrados */
+  background-color: var(--bg-tarjeta);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.contenedor-poster-cuadrado img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0 !important;
+}
+
+/* --- FILTROS INFERIORES (COMPACTOS SIN ESPACIO GIGANTE) --- */
+.filtros-horario {
+  display: flex;
+  flex-direction: column;
+  /* Margen superior reducido para quitar el espacio en blanco de la anotación verde */
+  margin-top: 0.5rem; 
+}
+
+.bloque-filtro {
+  padding: 1.2rem 0; /* Padding compacto para mantener proporciones limpias */
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.bloque-filtro h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+.input-desplegable {
+  background-color: var(--bg-campo);
+  color: var(--color-texto);
+  border: 1px solid var(--color-borde);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  width: 300px;
+  outline: none;
+  cursor: pointer;
+}
+
+.grupo-botones {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.btn-opcion {
+  background-color: var(--bg-campo);
+  color: #ffffff;
+  border: 1px solid var(--color-borde);
+  padding: 0.75rem 1.2rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-opcion:hover { border-color: var(--color-mutado); }
+.btn-opcion.seleccionado {
+  border-color: var(--color-naranja-cinepolis) !important;
+  background-color: rgba(234, 88, 12, 0.1);
+  color: #ffffff;
+}
+
+.btn-fecha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  min-width: 65px;
+}
+
+.btn-fecha strong { font-size: 0.95rem; }
+.btn-fecha span { font-size: 0.8rem; color: var(--color-mutado); font-weight: 400; }
+
+.btn-icono-calendario {
+  background-color: var(--bg-campo);
+  border: 1px solid var(--color-borde);
+  color: var(--color-naranja-cinepolis);
+  padding: 0.65rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- HORARIOS DISPONIBLES --- */
+.horarios-disponibles {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+}
+
+.cabecera-horarios h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.3rem;
+}
+
+.cabecera-horarios p {
+  color: var(--color-mutado);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.cine-resultado h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.direccion-cine {
+  color: var(--color-mutado);
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+}
+
+.etiquetas-formatos-cine {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.icono-camara {
+  width: 20px;
+  height: 20px;
+  fill: #ffffff;
+  margin-right: 0.4rem;
+}
+
+.bloque-formato-hora h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.2rem;
+}
+
+.grupo-horas { display: flex; gap: 1rem; }
+
+.btn-hora {
+  background-color: var(--bg-campo);
+  color: #ffffff;
+  border: 1px solid var(--color-borde);
+  padding: 0.9rem 1.4rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.btn-hora:hover {
+  background-color: var(--color-primario);
+  border-color: var(--color-primario);
+}

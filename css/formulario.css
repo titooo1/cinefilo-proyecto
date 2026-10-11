@@ -1,0 +1,67 @@
+/* ==========================================
+   ESTILOS DE INGRESO Y REGISTRO (UC-01)
+   ========================================== */
+.contenedor-autenticacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+}
+
+.tarjeta-autenticacion {
+  background-color: var(--bg-tarjeta);
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid var(--color-borde);
+}
+
+.pestanas-autenticacion {
+  display: flex;
+  margin-bottom: 1.5rem;
+  background-color: var(--bg-principal);
+  border-radius: 8px;
+  padding: 0.25rem;
+}
+
+.pestana-auth {
+  flex: 1;
+  padding: 0.6rem;
+  background: none;
+  border: none;
+  color: var(--color-mutado);
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.pestana-auth.activo {
+  background-color: var(--bg-tarjeta);
+  color: var(--color-texto);
+}
+
+.grupo-campo {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.grupo-campo label {
+  font-size: 0.9rem;
+  color: var(--color-mutado);
+}
+
+.campo-texto {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-borde);
+  background-color: var(--bg-campo);
+  color: #ffffff;
+}
+
+.campo-texto:focus {
+  outline: 2px solid var(--color-primario);
+}

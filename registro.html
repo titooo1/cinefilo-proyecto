@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineApp - Acceso y Registro</title>
+  <!-- Hojas de estilo sincronizadas -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/formulario.css">
+</head>
+<body>
+
+  <header class="barra-navegacion">
+    <div class="contenedor-nav">
+      <a href="index.html" class="logo">CINE<span>APP</span></a>
+      <a href="index.html" class="boton-volver">&larr; Volver a Cartelera</a>
+    </div>
+  </header>
+
+  <main class="contenedor-autenticacion">
+    <div class="tarjeta-autenticacion">
+      
+      <!-- Pestañas para alternar formularios -->
+      <div class="pestanas-autenticacion">
+        <button class="pestana-auth activo" id="btn-tab-ingreso" onclick="cambiarFormulario('ingreso')">Iniciar Sesión</button>
+        <button class="pestana-auth" id="btn-tab-registro" onclick="cambiarFormulario('registro')">Crear Cuenta</button>
+      </div>
+
+      <!-- Formulario: Iniciar Sesión -->
+      <form id="formulario-ingreso" class="formulario activo" action="php/procesar_ingreso.php" method="POST">
+        <h2>Bienvenido de Nuevo</h2>
+        
+        <div class="grupo-campo">
+          <label for="correo-ingreso">Correo Electrónico</label>
+          <input type="email" id="correo-ingreso" name="correo" required class="campo-texto" placeholder="correo@ejemplo.com">
+        </div>
+
+        <div class="grupo-campo">
+          <label for="clave-ingreso">Contraseña</label>
+          <input type="password" id="clave-ingreso" name="clave" required class="campo-texto" placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="boton boton-primario boton-bloque">Ingresar</button>
+      </form>
+
+      <!-- Formulario: Crear Cuenta -->
+      <form id="formulario-registro" class="formulario oculto" action="php/procesar_registro.php" method="POST">
+        <h2>Crear Cuenta de Cliente</h2>
+        
+        <div class="grupo-campo">
+          <label for="nombre-registro">Nombre Completo</label>
+          <input type="text" id="nombre-registro" name="nombre" required class="campo-texto" placeholder="Juan Pérez">
+        </div>
+
+        <div class="grupo-campo">
+          <label for="correo-registro">Correo Electrónico</label>
+          <input type="email" id="correo-registro" name="correo" required class="campo-texto" placeholder="correo@ejemplo.com">
+        </div>
+
+        <div class="grupo-campo">
+          <label for="clave-registro">Contraseña</label>
+          <input type="password" id="clave-registro" name="clave" required minlength="8" class="campo-texto" placeholder="Mínimo 8 caracteres">
+        </div>
+
+        <button type="submit" class="boton boton-primario boton-bloque">Registrarse</button>
+      </form>
+
+    </div>
+  </main>
+
+  <script src="js/autenticacion.js"></script>
+</body>
+</html>
