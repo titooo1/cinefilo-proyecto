@@ -1,4 +1,4 @@
-# CINEFILO - 
+# CINEFILO 
 
 **CINEFILO** 
 Es una aplicación web interactiva diseñada para ofrecer a los usuarios una experiencia fluida al consultar la cartelera de cine, explorar detalles de películas, seleccionar funciones y realizar la reserva de boletos y asientos en tiempo real.
