@@ -1,5 +1,5 @@
 /* ==========================================
-   CARRUSEL DESLIZANTE (DRAG HORIZONTAL - ESTILO CINÉPOLIS)
+   CARRUSEL DESLIZANTE (DRAG HORIZONTAL)
    ========================================== */
 .contenedor-carrusel {
   position: relative;
@@ -94,7 +94,7 @@
 
 .boton-pestana.activo {
   color: #ffffff;
-  border-bottom: 1px solid var(--color-naranja-cinepolis) !important;
+  border-bottom: 1px solid var(--color-naranja-cinefilo) !important;
 }
 
 /* ==========================================
@@ -194,5 +194,5 @@
 /* Efecto Hover */
 .enlace-pelicula:hover .info-pelicula h3,
 .enlace-pelicula:hover .datos-meta {
-  color: var(--color-naranja-cinepolis);
+  color: var(--color-naranja-cinefilo);
 }

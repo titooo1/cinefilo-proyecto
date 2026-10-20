@@ -3,71 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CineApp - Acceso y Registro</title>
+  <title>CINEFILO - Acceso y Registro</title>
   <!-- Hojas de estilo sincronizadas -->
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/formulario.css">
 </head>
-<body>
+<body class="cuerpo-auth">
 
+  <!-- Solo el logo regresa a la cartelera; sin botones flotantes en el header -->
   <header class="barra-navegacion">
     <div class="contenedor-nav">
-      <a href="index.html" class="logo">CINE<span>APP</span></a>
-      <a href="index.html" class="boton-volver">&larr; Volver a Cartelera</a>
+      <a href="index.html" class="logo">CINE<span>FILO</span></a>
     </div>
   </header>
 
   <main class="contenedor-autenticacion">
-    <div class="tarjeta-autenticacion">
-      
-      <!-- Pestañas para alternar formularios -->
-      <div class="pestanas-autenticacion">
-        <button class="pestana-auth activo" id="btn-tab-ingreso" onclick="cambiarFormulario('ingreso')">Iniciar Sesión</button>
-        <button class="pestana-auth" id="btn-tab-registro" onclick="cambiarFormulario('registro')">Crear Cuenta</button>
-      </div>
 
-      <!-- Formulario: Iniciar Sesión -->
-      <form id="formulario-ingreso" class="formulario activo" action="php/procesar_ingreso.php" method="POST">
-        <h2>Bienvenido de Nuevo</h2>
-        
-        <div class="grupo-campo">
-          <label for="correo-ingreso">Correo Electrónico</label>
-          <input type="email" id="correo-ingreso" name="correo" required class="campo-texto" placeholder="correo@ejemplo.com">
+    <!-- Vista: Iniciar sesión -->
+    <section id="vista-ingreso" class="vista-auth activo form-login">
+      <h1 class="titulo-club">CLUB <span>CINEFILO</span></h1>
+      <p class="subtitulo-auth">Inicia sesión o crea una cuenta</p>
+
+      <!-- El envío se gestiona en Frontend desde js/registro.js -->
+      <form id="formulario-ingreso" class="formulario-auth" method="POST">
+        <div class="campo-con-icono">
+          <span class="icono-campo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-10 6L2 7"></path>
+            </svg>
+          </span>
+          <input type="email" id="correo-ingreso" name="correo" required class="campo-texto" placeholder="Correo electrónico" autocomplete="email">
         </div>
 
-        <div class="grupo-campo">
-          <label for="clave-ingreso">Contraseña</label>
-          <input type="password" id="clave-ingreso" name="clave" required class="campo-texto" placeholder="••••••••">
+        <div class="campo-con-icono">
+          <span class="icono-campo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </span>
+          <input type="password" id="clave-ingreso" name="clave" required class="campo-texto" placeholder="Contraseña" autocomplete="current-password">
         </div>
 
-        <button type="submit" class="boton boton-primario boton-bloque">Ingresar</button>
+        <button type="submit" class="boton-auth primario">Iniciar sesión</button>
       </form>
 
-      <!-- Formulario: Crear Cuenta -->
-      <form id="formulario-registro" class="formulario oculto" action="php/procesar_registro.php" method="POST">
-        <h2>Crear Cuenta de Cliente</h2>
-        
+      <!-- Acceso secundario dentro de la tarjeta -->
+      <a href="index.html" class="boton-auth invitado">Continuar como invitado</a>
+
+      <!-- Conmutación a la creación de cuenta mediante enlace estilizado al pie -->
+      <button type="button" class="enlace-auth" id="btn-mostrar-registro">¿No tienes cuenta? Crear una cuenta</button>
+    </section>
+
+    <!-- Vista: Crear cuenta -->
+    <section id="vista-registro" class="vista-auth oculto form-registro">
+      <h2 class="titulo-vista">Crear una cuenta</h2>
+
+      <!-- El envío se gestiona en Frontend desde js/registro.js -->
+      <form id="formulario-registro" class="formulario-auth" method="POST">
         <div class="grupo-campo">
-          <label for="nombre-registro">Nombre Completo</label>
-          <input type="text" id="nombre-registro" name="nombre" required class="campo-texto" placeholder="Juan Pérez">
+          <label for="nombre-registro">Nombre completo <span class="asterisco">*</span></label>
+          <input type="text" id="nombre-registro" name="nombre" required class="campo-texto" placeholder="Juan Pérez" autocomplete="name">
         </div>
 
         <div class="grupo-campo">
-          <label for="correo-registro">Correo Electrónico</label>
-          <input type="email" id="correo-registro" name="correo" required class="campo-texto" placeholder="correo@ejemplo.com">
+          <label for="correo-registro">Correo electrónico <span class="asterisco">*</span></label>
+          <input type="email" id="correo-registro" name="correo" required class="campo-texto" placeholder="correo@ejemplo.com" autocomplete="email">
         </div>
 
         <div class="grupo-campo">
-          <label for="clave-registro">Contraseña</label>
-          <input type="password" id="clave-registro" name="clave" required minlength="8" class="campo-texto" placeholder="Mínimo 8 caracteres">
+          <label for="clave-registro">Contraseña <span class="asterisco">*</span></label>
+          <input type="password" id="clave-registro" name="clave" required minlength="8" class="campo-texto" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
         </div>
 
-        <button type="submit" class="boton boton-primario boton-bloque">Registrarse</button>
+        <div class="grupo-campo">
+          <label for="confirmar-clave-registro">Confirmar contraseña <span class="asterisco">*</span></label>
+          <input type="password" id="confirmar-clave-registro" name="confirmar_clave" required minlength="8" class="campo-texto" placeholder="Repite tu contraseña" autocomplete="new-password">
+        </div>
+
+        <div class="grupo-check">
+          <input type="checkbox" id="acepta-terminos" name="acepta_terminos" required class="casilla-terminos">
+          <label for="acepta-terminos">Acepto los <span class="texto-enlace">Términos y Condiciones</span> <span class="asterisco">*</span></label>
+        </div>
+
+        <button type="submit" class="boton-auth primario">Crear cuenta</button>
       </form>
 
-    </div>
+      <!-- Conmutación al inicio de sesión mediante enlace estilizado al pie -->
+      <button type="button" class="enlace-auth" id="btn-volver-ingreso">¿Ya tienes cuenta? Inicia sesión</button>
+    </section>
+
+    <!-- Mensaje de estado integrado (sin ventanas emergentes) -->
+    <p class="mensaje-estado-auth" id="mensaje-estado-auth" role="status" aria-live="polite"></p>
+
   </main>
 
-  <script src="js/autenticacion.js"></script>
+  <script src="js/registro.js"></script>
 </body>
 </html>

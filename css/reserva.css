@@ -6,6 +6,7 @@
   color: #1e293b;
   min-height: 100vh;
   padding-bottom: 120px;
+  --ancho-bloque-reserva: 780px;
 }
 
 /* --- MODAL BIFURCACIÓN SESIÓN / INVITADO --- */
@@ -49,7 +50,7 @@
 }
 
 .btn-modal-naranja {
-  background-color: var(--color-naranja-cinepolis);
+  background-color: var(--color-naranja-cinefilo, #ea580c);
   color: #ffffff;
   padding: 0.85rem 0;
   border-radius: 6px;
@@ -108,10 +109,10 @@
 }
 
 .paso-item { color: #94a3b8; }
-.paso-item.activo { color: var(--color-naranja-cinepolis); font-weight: 700; }
+.paso-item.activo { color: var(--color-naranja-cinefilo, #ea580c); font-weight: 700; }
 .flecha { color: #64748b; font-size: 0.8rem; }
 
-/* BANNER DE TAMAÑO ORIGINAL CON IMAGEN EXPANDIDA */
+/* BANNER DE PELÍCULA */
 .banner-reserva-pelicula {
   background-image: 
     linear-gradient(
@@ -124,7 +125,7 @@
   background-size: cover;
   background-position: center;
   color: #ffffff;
-  padding: 1.8rem 0; /* Vuelve a las proporciones esbeltas de antes */
+  padding: 1.8rem 0;
   border-bottom: 1px solid #1e293b;
 }
 
@@ -168,7 +169,8 @@
 
 /* ÁREA PRINCIPAL */
 .contenedor-pasos-reserva {
-  max-width: 780px;
+  width: 100%;
+  max-width: var(--ancho-bloque-reserva);
   margin: 2.5rem auto 1.5rem auto;
   padding: 0 1rem;
 }
@@ -217,7 +219,7 @@
 .precio-boleto {
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--color-naranja-cinepolis);
+  color: var(--color-naranja-cinefilo, #ea580c);
   margin-bottom: 0.2rem;
 }
 
@@ -249,7 +251,7 @@
 
 .btn-circulo-restar { background-color: #f1f5f9; color: #94a3b8; }
 .btn-circulo-restar:hover { background-color: #e2e8f0; color: #475569; }
-.btn-circulo-sumar { background-color: var(--color-naranja-cinepolis); color: #ffffff; }
+.btn-circulo-sumar { background-color: var(--color-naranja-cinefilo, #ea580c); color: #ffffff; }
 .btn-circulo-sumar:hover { background-color: #c2410c; }
 
 .valor-cantidad {
@@ -260,7 +262,9 @@
   text-align: center;
 }
 
-/* BARRA STICKY INFERIOR CON BOTONES MENOS ANCHOS */
+/* ==========================================
+   BARRA STICKY INFERIOR COMPACTA (520px)
+   ========================================== */
 .barra-sticky-resumen {
   position: fixed;
   bottom: 0;
@@ -274,7 +278,8 @@
 }
 
 .contenedor-sticky-interior {
-  max-width: 780px;
+  width: 100%;
+  max-width: 520px;
   margin: 0 auto;
   padding: 0 1rem;
   display: flex;
@@ -282,31 +287,45 @@
   gap: 0.6rem;
 }
 
-.resumen-tickets-info {
+.fila-info-resumen {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-size: 0.92rem;
-  color: #64748b;
-}
-
-.monto-total-resumen {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #0f172a;
-}
-
-.grupo-botones-pie {
-  display: flex;
-  justify-content: flex-end; /* Centrado a la derecha sin extenderse a los bordes */
+  justify-content: space-between;
   gap: 1rem;
 }
 
-/* Ancho acotado para botones más estilizados */
+.resumen-tickets-info {
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.resumen-tickets-info.alerta {
+  color: var(--color-naranja-cinefilo, #ea580c);
+  font-weight: 600;
+}
+
+.monto-total-resumen {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.fila-botones-resumen {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
 .btn-accion-regresar,
 .btn-accion-continuar {
-  width: 220px; /* Reducción de ancho */
-  padding: 0.7rem 0;
+  flex: 1;
+  padding: 0.8rem 0;
   font-size: 0.88rem;
   font-weight: 700;
   border-radius: 6px;
@@ -327,7 +346,7 @@
 }
 
 .btn-accion-continuar {
-  background-color: var(--color-naranja-cinepolis);
+  background-color: var(--color-naranja-cinefilo, #ea580c);
   color: #ffffff;
 }
 
@@ -338,8 +357,14 @@
 .btn-accion-continuar.deshabilitado {
   background-color: #e2e8f0 !important;
   color: #94a3b8 !important;
-  cursor: not-allowed;
+  cursor: default !important;
   opacity: 0.8;
+}
+
+@media (max-width: 560px) {
+  .contenedor-sticky-interior {
+    max-width: 100%;
+  }
 }
 
 @keyframes fadeIn {
@@ -380,17 +405,20 @@
 .contenedor-mapa-sala {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
-  align-items: center;
-  margin-bottom: 2.5rem;
-  overflow-x: auto;
-  padding: 1rem 0;
+  gap: 0.5rem;
+  align-items: stretch;
+  width: 100%;
+  margin-bottom: 2.2rem;
+  padding: 0.5rem 0;
+  overflow-x: hidden;
 }
 
 .fila-asientos {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  justify-content: center;
+  gap: 0.28rem;
+  width: 100%;
 }
 
 .etiqueta-fila {
@@ -398,63 +426,111 @@
   font-weight: 700;
   color: #64748b;
   width: 22px;
+  flex-shrink: 0;
   text-align: center;
   margin-left: 0.6rem;
 }
 
-/* --- BUTACAS REALISTAS CON OREJITAS (APOYABRAZOS) --- */
+/* BUTACAS CON SILUETA REAL SVG */
 .asiento-btn {
-  width: 28px;
-  height: 27px;
-  /* Forma de respaldo de butaca: esquinas superiores redondeadas, base cuadrada */
-  border-radius: 6px 6px 2px 2px; 
+  width: var(--tamano-butaca, 28px);
+  height: var(--tamano-butaca, 28px);
+  padding: 0;
   border: none;
-  font-size: 0.72rem;
-  font-weight: 700;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.15s ease;
-  color: #ffffff;
-  position: relative;
-  /* Pequeños apoyabrazos laterales simulados */
-  box-shadow: inset 2px 0 0 rgba(0, 0, 0, 0.15), inset -2px 0 0 rgba(0, 0, 0, 0.15);
+  color: #3b82f6;
+  transition: transform 0.15s ease, color 0.15s ease;
 }
 
-/* Estados de Butacas */
-.asiento-btn.disponible {
-  background-color: #3b82f6; /* Azul brillante */
+.asiento-btn svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.asiento-btn .parte-butaca {
+  fill: currentColor;
+}
+
+.asiento-btn .numero-asiento {
+  font-size: 10px;
+  font-weight: 700;
+  fill: #ffffff;
+}
+
+.asiento-btn:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
 }
 
 .asiento-btn.disponible:hover {
-  background-color: #2563eb;
+  color: #2563eb;
   transform: translateY(-2px);
 }
 
-/* RESERVADOS: Puntero normal estándar, sin símbolo de prohibido */
-.asiento-btn.reservado {
-  background-color: #64748b; /* Gris oscuro */
-  cursor: default !important; /* Puntero normal */
+.asiento-btn.reservado,
+.asiento-btn.reservado:hover {
+  color: #64748b;
+  cursor: default;
   opacity: 0.85;
 }
 
-.asiento-btn.seleccionado {
-  background-color: var(--color-naranja-cinepolis) !important; /* Naranja CINEFILO */
-  box-shadow: 0 0 10px rgba(234, 88, 12, 0.5);
+.asiento-btn.seleccionado,
+.asiento-btn.seleccionado:hover {
+  color: var(--color-naranja-cinefilo, #ea580c);
   transform: translateY(-2px);
 }
 
+.asiento-btn.seleccionado svg {
+  filter: drop-shadow(0 2px 4px rgba(234, 88, 12, 0.45));
+}
+
 .asiento-btn.discapacidad {
-  background-color: #3b82f6;
-  font-size: 0.7rem;
+  color: #3b82f6;
+}
+
+.asiento-btn.discapacidad svg {
+  width: 74%;
+  height: 74%;
+}
+
+.asiento-btn.discapacidad.seleccionado,
+.asiento-btn.discapacidad.seleccionado:hover {
+  color: var(--color-naranja-cinefilo, #ea580c);
+}
+
+.asiento-btn.discapacidad.reservado {
+  color: #64748b;
+  cursor: default;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-2px); }
+}
+
+.asiento-btn.shake {
+  animation: shake 0.3s ease;
 }
 
 .pasillo-espacio {
-  width: 18px;
+  flex: 0 0 14px;
 }
 
-/* --- LEYENDA E INTERACTIVIDAD TOOLTIP --- */
+@media (max-width: 760px) {
+  .fila-asientos { gap: 0.16rem; }
+  .asiento-btn { --tamano-butaca: 22px; }
+  .pasillo-espacio { flex: 0 0 8px; }
+  .etiqueta-fila { width: 16px; margin-left: 0.3rem; font-size: 0.72rem; }
+}
+
+/* LEYENDA */
 .leyenda-asientos {
   display: flex;
   justify-content: center;
@@ -470,60 +546,79 @@
   font-size: 0.85rem;
   color: #64748b;
   position: relative;
-  cursor: pointer;
+  cursor: default;
 }
 
 .icono-asiento {
-  width: 24px;
-  height: 22px;
-  border-radius: 5px 5px 2px 2px;
+  width: 28px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.68rem;
-  color: #ffffff;
-  box-shadow: inset 2px 0 0 rgba(0,0,0,0.15), inset -2px 0 0 rgba(0,0,0,0.15);
+  color: #3b82f6;
 }
 
-.icono-asiento.disponible { background-color: #3b82f6; }
-.icono-asiento.reservado { background-color: #64748b; }
-.icono-asiento.seleccion { background-color: var(--color-naranja-cinepolis); }
-.icono-asiento.discapacidad { background-color: #3b82f6; }
+.icono-asiento svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 
-/* GLOBO DE EXPLICACIÓN (TOOLTIP NEGRO ESTILO CINÉPOLIS) */
-.globo-tooltip {
+.icono-asiento .parte-butaca {
+  fill: currentColor;
+}
+
+.icono-asiento.disponible { color: #3b82f6; }
+.icono-asiento.reservado { color: #64748b; }
+.icono-asiento.seleccion { color: var(--color-naranja-cinefilo, #ea580c); }
+.icono-asiento.discapacidad { color: #3b82f6; }
+
+.icono-asiento.discapacidad svg {
+  width: 74%;
+  height: 74%;
+}
+
+.item-leyenda::after {
+  content: attr(data-tooltip);
   position: absolute;
-  bottom: 135%;
+  bottom: 150%;
   left: 50%;
   transform: translateX(-50%);
-  width: 280px;
-  background-color: #1e1e1e;
-  color: #ffffff;
-  padding: 0.9rem 1rem;
+  width: 260px;
+  background-color: #1e293b;
+  color: #f8fafc;
+  padding: 0.85rem 0.95rem;
   border-radius: 6px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   line-height: 1.4;
   text-align: left;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   display: none;
   z-index: 100;
   pointer-events: none;
 }
 
-/* Triangulito inferior del globo */
-.globo-tooltip::after {
+.item-leyenda::before {
   content: '';
   position: absolute;
-  top: 100%;
+  bottom: calc(150% - 7px);
   left: 50%;
   transform: translateX(-50%);
   border-width: 7px;
   border-style: solid;
-  border-color: #1e1e1e transparent transparent transparent;
+  border-color: #1e293b transparent transparent transparent;
+  display: none;
+  z-index: 100;
+  pointer-events: none;
 }
 
-/* Mostrar tooltip al pasar el cursor o al hacer clic */
-.item-leyenda:hover .globo-tooltip,
-.item-leyenda.activo-tooltip .globo-tooltip {
+.item-leyenda:hover::before,
+.item-leyenda:hover::after,
+.item-leyenda:focus-visible::before,
+.item-leyenda:focus-visible::after {
   display: block;
+}
+
+.zona-leyenda {
+  margin-bottom: 2rem;
 }

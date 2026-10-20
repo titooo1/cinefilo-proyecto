@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
-  // 1. MOTOR DEL CARRUSEL (ARRASTRE + AUTOPLAY)
+  // 1. MOTOR DEL CARRUSEL (ARRASTRE + AUTOPLAY INFINITO)
   // ==========================================
   const contenedor = document.getElementById('contenedor-carrusel');
   const pista = document.getElementById('pista-carrusel');
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalDiapositivas = diapositivas.length;
 
   if (contenedor && pista && totalDiapositivas > 0) {
-    let indiceActual = 0;
+    let indiceActual = 1; // La pista incluye un clon al inicio: la primera diapositiva real ocupa la posición 1
     let isDragging = false;
     let startPos = 0;
     let currentTranslate = 0;
@@ -20,6 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configuración
     const threshold = 100; // Píxeles necesarios para cambiar de diapositiva
     const slideInterval = 4000; // 4 segundos
+    const duracionTransicion = 'transform 0.5s ease-in-out';
+
+    // Clones de la última diapositiva (al inicio) y de la primera (al final)
+    // permiten un bucle infinito sin efecto de rebase ni rebote.
+    const clonInicio = diapositivas[totalDiapositivas - 1].cloneNode(true);
+    const clonFinal = diapositivas[0].cloneNode(true);
+    clonInicio.setAttribute('aria-hidden', 'true');
+    clonFinal.setAttribute('aria-hidden', 'true');
+    pista.insertBefore(clonInicio, pista.firstElementChild);
+    pista.appendChild(clonFinal);
 
     function obtenerAnchoContenedor() {
       return contenedor.getBoundingClientRect().width;
@@ -37,17 +47,30 @@ document.addEventListener('DOMContentLoaded', () => {
       setSliderPosition();
     }
 
+    // Al terminar la transición hacia un clon, se salta a la diapositiva
+    // real equivalente sin animación, cerrando el ciclo de forma continua.
+    function normalizarPosicion() {
+      let indiceReal = indiceActual;
+
+      if (indiceActual === 0) {
+        indiceReal = totalDiapositivas;
+      } else if (indiceActual === totalDiapositivas + 1) {
+        indiceReal = 1;
+      }
+
+      if (indiceReal !== indiceActual) {
+        indiceActual = indiceReal;
+        pista.style.transition = 'none';
+        setPositionByIndex();
+      }
+    }
+
+    pista.addEventListener('transitionend', normalizarPosicion);
+
     // Navegación
     function irA(indice) {
-      if (indice < 0) {
-        indiceActual = totalDiapositivas - 1;
-      } else if (indice >= totalDiapositivas) {
-        indiceActual = 0;
-      } else {
-        indiceActual = indice;
-      }
-      
-      pista.style.transition = 'transform 0.4s ease-out';
+      indiceActual = indice;
+      pista.style.transition = duracionTransicion;
       setPositionByIndex();
       reiniciarAutoPlay();
     }
@@ -120,13 +143,15 @@ document.addEventListener('DOMContentLoaded', () => {
     contenedor.addEventListener('contextmenu', e => e.preventDefault());
     contenedor.addEventListener('dragstart', e => e.preventDefault());
 
-    // Reajustar en resize
+    // Reajustar en resize (normalizando si quedó sobre un clon)
     window.addEventListener('resize', () => {
+      normalizarPosicion();
       pista.style.transition = 'none';
       setPositionByIndex();
     });
 
-    // Inicializar
+    // Inicializar (posición 1: primera diapositiva real, después del clon inicial)
+    pista.style.transition = 'none';
     setPositionByIndex();
     iniciarAutoPlay();
   }

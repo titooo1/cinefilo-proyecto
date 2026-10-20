@@ -66,7 +66,7 @@
 }
 
 .separador-naranja {
-  color: var(--color-naranja-cinepolis);
+  color: var(--color-naranja-cinefilo);
   font-weight: 400;
   margin: 0 0.4rem;
 }
@@ -115,7 +115,7 @@
 .btn-ir-reservar {
   width: 100%;
   height: 42px; /* Mismo alto que la fila .etiquetas-meta */
-  background-color: var(--color-naranja-cinepolis);
+  background-color: var(--color-naranja-cinefilo);
   color: #ffffff;
   border: none;
   font-size: 0.9rem;
@@ -207,7 +207,7 @@
 
 .btn-opcion:hover { border-color: var(--color-mutado); }
 .btn-opcion.seleccionado {
-  border-color: var(--color-naranja-cinepolis) !important;
+  border-color: var(--color-naranja-cinefilo) !important;
   background-color: rgba(234, 88, 12, 0.1);
   color: #ffffff;
 }
@@ -226,7 +226,7 @@
 .btn-icono-calendario {
   background-color: var(--bg-campo);
   border: 1px solid var(--color-borde);
-  color: var(--color-naranja-cinepolis);
+  color: var(--color-naranja-cinefilo);
   padding: 0.65rem 0.8rem;
   border-radius: 4px;
   cursor: pointer;
