@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CineApp - Seleccionar Entradas</title>
+  <title>CINEFILO - Seleccionar Entradas</title>
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/reserva.css">
 </head>
@@ -14,8 +14,8 @@
     <div class="tarjeta-modal-login">
       <h2>¿Ya eres parte de los Cinefilitos?</h2>
       <div class="grupo-botones-modal">
-        <a href="registro.html" class="btn-modal-naranja">INICIAR SESIÓN</a>
-        <a href="registro.html" class="btn-modal-naranja">REGISTRARTE</a>
+        <a href="registro.html?mode=login" class="btn-modal-naranja">INICIAR SESIÓN</a>
+        <a href="registro.html?mode=registro" class="btn-modal-naranja">REGISTRARTE</a>
       </div>
       <button type="button" class="btn-invitado-link" onclick="cerrarModalInvitado()">COMPRA COMO INVITADO</button>
     </div>
@@ -24,7 +24,7 @@
   <!-- Header Superior Estático -->
   <header class="header-reserva">
     <div class="contenedor-nav-reserva">
-      <a href="index.html" class="logo">CINE<span>APP</span></a>
+      <a href="index.html" class="logo">CINE<span>FILO</span></a>
       
       <nav class="pasos-compra-header">
         <span class="paso-item activo" id="paso-hdr-1">ENTRADAS</span>
@@ -38,7 +38,7 @@
     </div>
   </header>
 
-  <!-- Banner con Contenedor Compacto de Proporción Elegante -->
+  <!-- Banner de Película -->
   <section class="banner-reserva-pelicula">
     <div class="contenedor-reserva-info">
       <div class="mini-poster-cuadrado">
@@ -53,23 +53,18 @@
     </div>
   </section>
 
- <!-- Área Principal de Pasos de Reserva (SPA) -->
+  <!-- Área Principal de Pasos de Reserva (SPA) -->
   <main class="contenedor-pasos-reserva">
 
-    <!-- ==========================================
-         PASO 1: SELECCIONAR ENTRADAS (Activo al inicio)
-         ========================================== -->
+    <!-- PASO 1: SELECCIONAR ENTRADAS -->
     <section id="paso-1" class="seccion-paso-reserva activo">
-      
       <h2 class="titulo-paso">Seleccione sus entradas</h2>
 
       <div class="caja-notificacion-servicio">
         Se cobra un costo por servicio por cada entrada comprada
       </div>
 
-      <!-- Tarjetas de Boletos -->
       <div class="lista-boletos">
-        
         <div class="tarjeta-boleto-item">
           <div class="info-boleto-det">
             <h3>ADULTO</h3>
@@ -121,75 +116,93 @@
             <button type="button" class="btn-circulo-sumar" onclick="cambiarCantidadBoleto('discap', 1)">+</button>
           </div>
         </div>
-
       </div>
-
     </section>
 
-<!-- PASO 2: SELECCIÓN DE ASIENTOS DE CINE -->
+    <!-- PASO 2: SELECCIÓN DE ASIENTOS DE CINE -->
     <section id="paso-2" class="seccion-paso-reserva oculto">
-      
       <div class="cabecera-sala">
         <h2 class="titulo-sala">SALA 8</h2>
         <div class="pantalla-cine">pantalla</div>
       </div>
 
-      <!-- Mapa Dinámico de Butacas Realistas -->
       <div class="contenedor-mapa-sala" id="mapa-asientos-container"></div>
 
-      <!-- Leyenda Interactiva con Tooltips Informativos -->
-      <div class="leyenda-asientos">
-        
-        <div class="item-leyenda" data-tooltip="Asiento libre listo para ser seleccionado por el cliente.">
-          <span class="icono-asiento disponible"></span>
-          <span>Disponible</span>
-        </div>
+      <div class="zona-leyenda">
+        <div class="leyenda-asientos">
+          <div class="item-leyenda" tabindex="0" data-tooltip="Asiento libre listo para ser seleccionado por el cliente.">
+            <span class="icono-asiento disponible">
+              <svg viewBox="0 0 32 26" aria-hidden="true">
+                <rect class="parte-butaca" x="1.5" y="10.5" width="4.5" height="11.5" rx="1.8"></rect>
+                <rect class="parte-butaca" x="26" y="10.5" width="4.5" height="11.5" rx="1.8"></rect>
+                <rect class="parte-butaca" x="7" y="1.5" width="18" height="14.5" rx="4"></rect>
+                <rect class="parte-butaca" x="5" y="13.5" width="22" height="7.5" rx="2.5"></rect>
+              </svg>
+            </span>
+            <span>Disponible</span>
+          </div>
 
-        <div class="item-leyenda" data-tooltip="Este asiento ya ha sido comprado o reservado por otro cliente.">
-          <span class="icono-asiento reservado"></span>
-          <span>Reservado</span>
-        </div>
+          <div class="item-leyenda" tabindex="0" data-tooltip="Este asiento ya ha sido comprado o reservado por otro cliente.">
+            <span class="icono-asiento reservado">
+              <svg viewBox="0 0 32 26" aria-hidden="true">
+                <rect class="parte-butaca" x="1.5" y="10.5" width="4.5" height="11.5" rx="1.8"></rect>
+                <rect class="parte-butaca" x="26" y="10.5" width="4.5" height="11.5" rx="1.8"></rect>
+                <rect class="parte-butaca" x="7" y="1.5" width="18" height="14.5" rx="4"></rect>
+                <rect class="parte-butaca" x="5" y="13.5" width="22" height="7.5" rx="2.5"></rect>
+              </svg>
+            </span>
+            <span>Reservado</span>
+          </div>
 
-        <div class="item-leyenda" data-tooltip="Asiento(s) actualmente elegidos para tu compra.">
-          <span class="icono-asiento seleccion"></span>
-          <span>Su selección</span>
-        </div>
+          <div class="item-leyenda" tabindex="0" data-tooltip="Asiento(s) actualmente elegidos para tu compra.">
+            <span class="icono-asiento seleccion">
+              <svg viewBox="0 0 32 26" aria-hidden="true">
+                <rect class="parte-butaca" x="1.5" y="10.5" width="4.5" height="11.5" rx="1.8"></rect>
+                <rect class="parte-butaca" x="26" y="10.5" width="4.5" height="11.5" rx="1.8"></rect>
+                <rect class="parte-butaca" x="7" y="1.5" width="18" height="14.5" rx="4"></rect>
+                <rect class="parte-butaca" x="5" y="13.5" width="22" height="7.5" rx="2.5"></rect>
+              </svg>
+            </span>
+            <span>Su selección</span>
+          </div>
 
-        <div class="item-leyenda tooltip-especial" data-tooltip="Este asiento es de uso exclusivo para el acompañante de una persona en silla de ruedas que ocupe el espacio ubicado a su lado.">
-          <span class="icono-asiento discapacidad">♿</span>
-          <span>Asiento de acompañante</span>
-          <!-- Globlito flotante de explicación estilo Cinépolis -->
-          <div class="globo-tooltip">
-            Este asiento es de uso exclusivo para el acompañante de una persona en silla de ruedas que ocupe el espacio ubicado a su lado.
+          <div class="item-leyenda" tabindex="0" data-tooltip="Este asiento es de uso exclusivo para el acompañante de una persona en silla de ruedas que ocupe el espacio ubicado a su lado.">
+            <span class="icono-asiento discapacidad">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="4" r="2"></circle>
+                <path d="M11 7v5h5"></path>
+                <path d="M16 12l2.5 6H21"></path>
+                <circle cx="12.5" cy="15.5" r="5.5"></circle>
+              </svg>
+            </span>
+            <span>Asiento de acompañante</span>
           </div>
         </div>
-
       </div>
 
       <div class="caja-notificacion-servicio">
         Si cuentas con un cupón, podrás canjearlo en la siguiente pantalla.
       </div>
-
     </section>
 
   </main>
 
-  </main>
-
-  <!-- BARRA STICKY INFERIOR CON BOTONES DE ANCHO CONTROLADO -->
+  <!-- BARRA STICKY INFERIOR CON ANCHO COMPACTO CENTRADO Y SIMÉTRICO -->
   <div class="barra-sticky-resumen">
     <div class="contenedor-sticky-interior">
-      
-      <div class="resumen-tickets-info">
-        <span id="txt-tickets-contador">0 Tickets seleccionados</span>
+
+      <!-- Fila superior: texto alineado sobre la izquierda del botón 'REGRESAR' y monto sobre la derecha del botón 'CONTINUAR' -->
+      <div class="fila-info-resumen">
+        <span class="resumen-tickets-info" id="txt-tickets-contador" role="status" aria-live="polite">0 Tickets seleccionados</span>
         <span class="monto-total-resumen" id="txt-monto-total">$0.00</span>
       </div>
-      
-      <div class="grupo-botones-pie">
+
+      <!-- Fila inferior: botones ocupando el 100% del contenedor compacto -->
+      <div class="fila-botones-resumen">
         <button type="button" class="btn-accion-regresar" id="btn-regresar-cancelar" onclick="ejecutarAccionRegresar()">
           <span id="texto-regresar">REGRESAR</span>
         </button>
-        
+
         <button type="button" class="btn-accion-continuar deshabilitado" id="btn-continuar-asientos" onclick="avanzarAAsientos()">
           CONTINUAR
         </button>

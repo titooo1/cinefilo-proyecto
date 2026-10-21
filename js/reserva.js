@@ -1,5 +1,28 @@
-const PRECIOS = { adulto: 6.50, nino: 5.25, tercera: 3.25, discapacitado: 3.25 };
-const cantidades = { adulto: 0, nino: 0, tercera: 0, discapacitado: 0 };
+const PRECIOS = { adulto: 6.50, nino: 5.25, tercera: 3.25, discap: 3.25 };
+const cantidades = { adulto: 0, nino: 0, tercera: 0, discap: 0 };
+
+const ICONO_ACOMPANANTE = `
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="11" cy="4" r="2"></circle>
+    <path d="M11 7v5h5"></path>
+    <path d="M16 12l2.5 6H21"></path>
+    <circle cx="12.5" cy="15.5" r="5.5"></circle>
+  </svg>`;
+
+function crearButacaSVG(contenidoInterno) {
+  return `
+    <svg viewBox="0 0 32 26" aria-hidden="true">
+      <rect class="parte-butaca" x="1.5" y="10.5" width="4.5" height="11.5" rx="1.8"></rect>
+      <rect class="parte-butaca" x="26" y="10.5" width="4.5" height="11.5" rx="1.8"></rect>
+      <rect class="parte-butaca" x="7" y="1.5" width="18" height="14.5" rx="4"></rect>
+      <rect class="parte-butaca" x="5" y="13.5" width="22" height="7.5" rx="2.5"></rect>
+      ${contenidoInterno}
+    </svg>`;
+}
+
+function crearNumeroAsiento(numero) {
+  return `<text class="numero-asiento" x="16" y="9" text-anchor="middle" dominant-baseline="middle">${numero}</text>`;
+}
 
 let pasoActual = 1;
 let totalBoletosComprados = 0;
@@ -7,29 +30,33 @@ let asientosSeleccionados = [];
 
 function cerrarModalInvitado() {
   const modal = document.getElementById('modal-cinefilitos');
-  if (modal) modal.style.display = 'none';
+  if (modal) {
+    modal.style.setProperty('display', 'none', 'important');
+  }
 }
 
 function cambiarCantidadBoleto(tipo, cambio) {
-  cantidades[tipo] = Math.max(0, cantidades[tipo] + cambio);
+  const cantidadActual = Number(cantidades[tipo]) || 0;
+  cantidades[tipo] = Math.max(0, cantidadActual + cambio);
   document.getElementById(`cant-${tipo}`).textContent = cantidades[tipo];
   actualizarResumenTotales();
 }
 
 function actualizarResumenTotales() {
-  totalBoletosComprados = cantidades.adulto + cantidades.nino + cantidades.tercera + cantidades.discapacitado;
+  totalBoletosComprados = cantidades.adulto + cantidades.nino + cantidades.tercera + cantidades.discap;
   const montoTotal = (cantidades.adulto * PRECIOS.adulto) +
                      (cantidades.nino * PRECIOS.nino) +
                      (cantidades.tercera * PRECIOS.tercera) +
-                     (cantidades.discapacitado * PRECIOS.discapacitado);
+                     (cantidades.discap * PRECIOS.discap);
 
-  const txtTickets = document.getElementById('txt-tickets-contador');
+  const txtContador = document.getElementById('txt-tickets-contador');
   const txtMonto = document.getElementById('txt-monto-total');
   const btnContinuar = document.getElementById('btn-continuar-asientos');
   const txtRegresar = document.getElementById('texto-regresar');
 
   if (pasoActual === 1) {
-    txtTickets.textContent = `${totalBoletosComprados} Tickets seleccionados`;
+    txtContador.classList.remove('alerta');
+    txtContador.textContent = `${totalBoletosComprados} Tickets seleccionados`;
     txtMonto.textContent = `$${montoTotal.toFixed(2)}`;
 
     if (totalBoletosComprados > 0) {
@@ -40,13 +67,13 @@ function actualizarResumenTotales() {
       txtRegresar.textContent = 'REGRESAR';
     }
   } else if (pasoActual === 2) {
-    txtTickets.textContent = `${asientosSeleccionados.length} de ${totalBoletosComprados} Asientos seleccionados`;
-    
-    if (asientosSeleccionados.length === totalBoletosComprados) {
-      btnContinuar.classList.remove('deshabilitado');
-    } else {
-      btnContinuar.classList.add('deshabilitado');
-    }
+    const enLimite = asientosSeleccionados.length >= totalBoletosComprados;
+    txtContador.classList.toggle('alerta', enLimite);
+    txtContador.textContent = enLimite
+      ? `Límite alcanzado: ${asientosSeleccionados.length} de ${totalBoletosComprados} asientos.`
+      : `${asientosSeleccionados.length} de ${totalBoletosComprados} Asientos seleccionados`;
+
+    btnContinuar.classList.toggle('deshabilitado', !enLimite);
   }
 }
 
@@ -66,11 +93,11 @@ function avanzarAAsientos() {
     actualizarResumenTotales();
 
   } else if (pasoActual === 2) {
-    if (asientosSeleccionados.length < totalBoletosComprados) {
-      alert(`Por favor selecciona los ${totalBoletosComprados} asientos requeridos.`);
-      return;
-    }
-    alert('¡Asientos confirmados! Redirigiendo a la pantalla de Pago...');
+    if (asientosSeleccionados.length < totalBoletosComprados) return;
+
+    const txtContador = document.getElementById('txt-tickets-contador');
+    txtContador.classList.remove('alerta');
+    txtContador.textContent = 'Asientos confirmados. La pasarela de pago se habilitará en la siguiente fase.';
   }
 }
 
@@ -99,13 +126,11 @@ function ejecutarAccionRegresar() {
   }
 }
 
-// CONSTRUCTOR DE SALA REALISTA
 function construirMapaSala() {
   const container = document.getElementById('mapa-asientos-container');
   container.innerHTML = '';
 
   const filas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
-  // Solo se marcan ocupados si existen en la matriz
   const ocupadosSimulados = ['D15', 'H4', 'H5', 'H6']; 
   const asientosDiscapacidad = ['A9', 'A10'];
 
@@ -123,14 +148,14 @@ function construirMapaSala() {
       
       if (asientosDiscapacidad.includes(codigoAsiento)) {
         btn.classList.add('discapacidad');
-        btn.textContent = '♿';
+        btn.innerHTML = ICONO_ACOMPANANTE;
       } else {
-        btn.textContent = num;
+        btn.innerHTML = crearButacaSVG(crearNumeroAsiento(num));
       }
+      btn.setAttribute('aria-label', `Asiento ${codigoAsiento}`);
 
       if (ocupadosSimulados.includes(codigoAsiento)) {
         btn.classList.add('reservado');
-        // No agrega evento ni cambia puntero, simplemente es estático
       } else {
         btn.classList.add('disponible');
         btn.addEventListener('click', () => toggleSeleccionAsiento(btn, codigoAsiento));
@@ -152,13 +177,13 @@ function construirMapaSala() {
 
     container.appendChild(divFila);
   });
+}
 
-  // Habilitar toggle por clic en la leyenda para dispositivos móviles
-  document.querySelectorAll('.item-leyenda').forEach(item => {
-    item.addEventListener('click', () => {
-      item.classList.toggle('activo-tooltip');
-    });
-  });
+function aplicarAnimacionShake(elemento) {
+  elemento.classList.remove('shake');
+  void elemento.offsetWidth;
+  elemento.classList.add('shake');
+  elemento.addEventListener('animationend', () => elemento.classList.remove('shake'), { once: true });
 }
 
 function toggleSeleccionAsiento(btnElement, codigo) {
@@ -167,11 +192,12 @@ function toggleSeleccionAsiento(btnElement, codigo) {
     asientosSeleccionados = asientosSeleccionados.filter(a => a !== codigo);
   } else {
     if (asientosSeleccionados.length >= totalBoletosComprados) {
-      alert(`Solo compraste ${totalBoletosComprados} ticket(s). Desmarca uno si deseas cambiar.`);
+      aplicarAnimacionShake(btnElement);
       return;
     }
     btnElement.classList.add('seleccionado');
     asientosSeleccionados.push(codigo);
   }
+
   actualizarResumenTotales();
 }
