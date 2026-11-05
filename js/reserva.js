@@ -95,9 +95,44 @@ function avanzarAAsientos() {
   } else if (pasoActual === 2) {
     if (asientosSeleccionados.length < totalBoletosComprados) return;
 
-    const txtContador = document.getElementById('txt-tickets-contador');
-    txtContador.classList.remove('alerta');
-    txtContador.textContent = 'Asientos confirmados. La pasarela de pago se habilitará en la siguiente fase.';
+    guardarOrdenEnSesion();
+    window.location.href = 'pago.html';
+  }
+}
+
+function guardarOrdenEnSesion() {
+  const CARGO_SERVICIO = 0.40;
+
+  let subtotal = 0;
+  for (let tipo in cantidades) {
+    subtotal += cantidades[tipo] * PRECIOS[tipo];
+  }
+
+  const totalServicio = totalBoletosComprados * CARGO_SERVICIO;
+
+  const obtenerTexto = (id, respaldo) => {
+    const elemento = document.getElementById(id);
+    return elemento ? elemento.textContent.trim() : respaldo;
+  };
+
+  const orden = {
+    pelicula: obtenerTexto('reserva-titulo-pelicula', 'Película'),
+    cineSala: obtenerTexto('reserva-cine-sala', 'CINEFILO'),
+    fechaHora: obtenerTexto('reserva-fecha-hora', 'Por confirmar'),
+    clasificacion: obtenerTexto('reserva-clasificacion', 'Clasificación no disponible'),
+    cantidades: { ...cantidades },
+    totalBoletos: totalBoletosComprados,
+    asientos: [...asientosSeleccionados],
+    cargoServicioUnitario: CARGO_SERVICIO,
+    subtotal: subtotal,
+    totalServicio: totalServicio,
+    total: subtotal + totalServicio
+  };
+
+  try {
+    sessionStorage.setItem('ordenCinefilo', JSON.stringify(orden));
+  } catch (error) {
+    // El almacenamiento de sesión no está disponible; se continúa con valores por defecto.
   }
 }
 

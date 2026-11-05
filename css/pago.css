@@ -1,0 +1,404 @@
+/* =====================================================
+   0. ESTABILIDAD DE PÁGINA
+   ===================================================== */
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+/* =====================================================
+   1. HEADER Y BANNER DE PELÍCULA
+   ===================================================== */
+.header-reserva {
+  background-color: #03122e;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 10;
+}
+
+.contenedor-nav-reserva {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pasos-compra-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.paso-item { color: #94a3b8; text-decoration: none; }
+.paso-item.activo { color: var(--color-naranja-cinefilo, #ea580c); font-weight: 700; }
+.flecha { color: #64748b; font-size: 0.8rem; }
+
+.banner-reserva-pelicula {
+  background-image: 
+    linear-gradient(0deg, rgba(2, 9, 23, 0.98) 0%, rgba(3, 18, 46, 0.85) 60%, rgba(3, 18, 46, 0.65) 100%), 
+    url('../assets/img/bannerRE_peli.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid #1e293b;
+}
+
+.contenedor-reserva-info {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.mini-poster-cuadrado { width: 80px; height: 115px; overflow: hidden; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); }
+.mini-poster-cuadrado img { width: 100%; height: 100%; object-fit: cover; }
+.detalles-reserva-pelicula h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem; color: #ffffff; }
+.detalles-reserva-pelicula p { font-size: 0.92rem; color: #e2e8f0; margin-bottom: 0.2rem; }
+
+/* =====================================================
+   2. CUERPO PRINCIPAL Y LÍNEA VERDE
+   ===================================================== */
+body.body-pago {
+  background-color: #ffffff;
+  color: #111827;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 130px !important;
+}
+
+.contenedor-pago-principal {
+  max-width: 1050px;
+  margin: 1.5rem auto 2rem auto;
+  padding: 0 1.5rem;
+}
+
+/* Temporizador */
+.banner-timer-azul {
+  background-color: #3b82f6;
+  color: #ffffff;
+  padding: 0.85rem 1.2rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+  font-size: 0.88rem;
+  transition: background-color 0.3s ease;
+}
+.banner-timer-azul p { margin: 0; }
+.banner-timer-azul.expirado { background-color: #dc2626; font-weight: 600; }
+
+.grid-pago-proporcional {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ESTE ES EL CONTENEDOR QUE ARREGLA LA LÍNEA VERDE */
+.contenedor-ancho-estricto {
+  max-width: 440px; 
+  width: 100%;
+}
+
+/* =====================================================
+   3. CAMPOS DE FORMULARIO
+   ===================================================== */
+.bloque-pago { margin-bottom: 1.8rem; }
+.titulo-seccion { font-size: 1.25rem; color: #111827; margin-bottom: 1rem; font-weight: 700; }
+.fila-doble-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.grupo-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+.grupo-campo label { font-size: 0.85rem; font-weight: 600; color: #475569; }
+
+.input-con-icono { position: relative; display: flex; align-items: center; width: 100%; }
+.input-con-icono input { width: 100%; padding-right: 2.5rem; }
+
+.icono-svg { position: absolute; right: 0.8rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+
+.grupo-campo input {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #111827;
+  padding: 0.7rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.grupo-campo input:focus {
+  border: 1px solid #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+.grupo-campo input[readonly] { background-color: #f8fafc; color: #475569; }
+
+/* =====================================================
+   4. BOTONES DE ACCIÓN (Adiós al brinco y al bug)
+   ===================================================== */
+.fila-acciones-rapidas {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.btn-subtle-outline {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem; /* Padding fijo y estricto */
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  /* El secreto: Solo animamos color/sombra, NUNCA márgenes ni bordes */
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.btn-subtle-outline:hover { background-color: #f8fafc; border-color: #94a3b8; color: #334155; }
+.btn-subtle-outline.activa { 
+  border-color: #2563eb; 
+  color: #2563eb; 
+  background-color: #eff6ff;
+  /* En lugar de engrosar el borde, usamos box-shadow interna para no empujar el layout */
+  box-shadow: 0 0 0 1px #2563eb; 
+}
+
+/* =====================================================
+   5. MÉTODOS DE PAGO
+   ===================================================== */
+.metodos-pago-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  width: 100%;
+}
+
+.opcion-pago-card {
+  position: relative;
+  background-color: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  cursor: pointer !important;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.opcion-pago-card:hover { border-color: #cbd5e1; }
+.opcion-pago-card.activa { border-color: #2563eb; }
+
+.img-metodo-pago { max-width: 90%; max-height: 42px; width: auto; height: auto; object-fit: contain; }
+.radio-oculto { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+
+/* =====================================================
+   6. CAJAS DESPLEGABLES
+   ===================================================== */
+.caja-desplegable-pago {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 1.2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.caja-desplegable-pago::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: calc(var(--flecha-x, 50%) - 6px);
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border-left: 1px solid #cbd5e1;
+  border-top: 1px solid #cbd5e1;
+  transform: rotate(45deg);
+}
+
+.caja-desplegable-pago.flecha-cupon { --flecha-x: 20%; }
+.caja-desplegable-pago.flecha-facturacion { --flecha-x: 55%; }
+
+#contenedor-paneles-extra { width: 100%; margin-bottom: 1.2rem; }
+.pos-extra { margin-bottom: 0; }
+.pos-extra.oculto { display: none; }
+
+.contenedor-superpuesto-pago {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+}
+.contenedor-superpuesto-pago > .caja-desplegable-pago { grid-area: 1 / 1; transition: opacity 0.15s ease-in-out; }
+.contenedor-superpuesto-pago > .caja-desplegable-pago.oculto { visibility: hidden; opacity: 0; pointer-events: none; z-index: 1; }
+.contenedor-superpuesto-pago > .caja-desplegable-pago:not(.oculto) { visibility: visible; opacity: 1; pointer-events: auto; z-index: 2; }
+
+.caja-desplegable-pago.pos-tarjeta { --flecha-x: 25%; }
+.caja-desplegable-pago.pos-yappy   { --flecha-x: 75%; }
+
+.instruccion-yappy { font-size: 0.82rem; color: #64748b; margin-top: 0.6rem; line-height: 1.45; }
+
+/* =====================================================
+   7. BOTONES INTERNOS CUPÓN
+   ===================================================== */
+.input-con-boton { display: flex; gap: 0.6rem; width: 100%; }
+.contenedor-cupon-flex { flex: 1; }
+
+.btn-aplicar-interno {
+  background-color: #03122e;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0 1.2rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer !important;
+  height: 40px;
+}
+.btn-aplicar-interno:hover { background-color: #1e293b; }
+.btn-aplicar-interno.btn-rojo-equis { background-color: #dc2626; font-size: 1.1rem; letter-spacing: 2px; }
+.btn-aplicar-interno.btn-rojo-equis:hover { background-color: #b91c1c; }
+.btn-aplicar-interno.btn-aplicado { background-color: #16a34a; }
+.btn-aplicar-interno.btn-aplicado:hover { background-color: #15803d; }
+
+.msg-feedback { font-size: 0.8rem; font-weight: 600; margin-top: 0.4rem; margin-bottom: 0; }
+.msg-feedback.error { color: #dc2626; }
+.msg-feedback.exito { color: #16a34a; }
+.msg-feedback.oculto { display: none; }
+
+.checkbox-legal-fuera { display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: #334155; margin-top: 1.5rem; padding-left: 0.5rem; }
+.checkbox-legal-fuera a { color: #2563eb; text-decoration: underline; }
+
+/* =====================================================
+   8. TICKET DE RESUMEN
+   ===================================================== */
+.columna-resumen {
+  align-self: start;
+  justify-self: end;
+  width: 100%;
+  max-width: 380px;
+}
+
+.card-ticket-negro {
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #1f2937;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.ticket-seccion-peli .peli-titulo-ticket { margin: 0 0 0.2rem 0; font-size: 1.25rem; font-weight: 700; color: #ffffff; }
+.ticket-seccion-peli .ubicacion-ticket { margin: 0; color: #94a3b8; font-size: 0.85rem; }
+
+.ticket-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1rem; margin: 0; }
+.ticket-meta dt { font-size: 0.75rem; color: #64748b; font-weight: 600; }
+.ticket-meta dd { margin: 0.15rem 0 0; font-size: 0.86rem; color: #ffffff; font-weight: 600; }
+
+.resumen-asientos-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+  color: #38bdf8;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.linea-corte-simple {
+  border-top: 1px solid #1f2937;
+  width: 100%;
+  margin: 0.2rem 0;
+}
+
+.desglose-ticket { display: flex; flex-direction: column; gap: 0.5rem; }
+.linea-desglose { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.85rem; color: #cbd5e1; }
+.linea-desglose span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
+.fila-cupon-oculta { display: none; }
+.text-verde { color: #16a34a !important; }
+
+.footer-ticket-total { display: flex; justify-content: space-between; align-items: flex-end; }
+.etiqueta-total-grupo { display: flex; flex-direction: column; }
+.label-total { font-size: 0.9rem; color: #94a3b8; font-weight: 600; }
+.subtext-impuestos { font-size: 0.72rem; color: #475569; }
+.monto-total-grande { font-size: 1.8rem; font-weight: 800; color: #ffffff; font-variant-numeric: tabular-nums; }
+
+/* =====================================================
+   9. BARRA STICKY INFERIOR
+   ===================================================== */
+.barra-sticky-resumen {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem 0 1rem 0;
+  z-index: 9999;
+}
+
+.contenedor-sticky-interior {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-sizing: border-box;
+}
+
+.fila-info-resumen { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.resumen-tickets-info { font-size: 0.88rem; color: #475569; font-weight: 600; letter-spacing: 0.5px; }
+.monto-total-resumen { font-size: 1.35rem; font-weight: 800; color: #0f172a; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.fila-botones-resumen { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; }
+.btn-accion-regresar, .btn-accion-continuar {
+  flex: 1;
+  padding: 0.8rem 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer !important;
+  text-align: center;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn-accion-regresar { background-color: #334155; color: #ffffff; }
+.btn-accion-regresar:hover { background-color: #1e293b; }
+.btn-accion-continuar { background-color: var(--color-naranja-cinefilo, #ea580c); color: #ffffff; }
+.btn-accion-continuar:hover { background-color: #c2410c; }
+.btn-accion-continuar:disabled { background-color: #94a3b8; cursor: pointer !important; }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .grid-pago-proporcional { grid-template-columns: minmax(0, 1fr); }
+  .columna-resumen { justify-self: center; max-width: 100%; }
+}
