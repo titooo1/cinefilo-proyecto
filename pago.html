@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINEFILO - Pasarela de Pago</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/pago.css">
+</head>
+<body class="body-pago">
+
+    <!-- HEADER DEL PROYECTO -->
+    <header class="header-reserva">
+        <div class="contenedor-nav-reserva">
+            <a href="index.html" class="logo">CINE<span>FILO</span></a>
+            <div class="pasos-compra-header">
+                <a href="index.html" class="paso-item">ENTRADAS</a>
+                <span class="flecha">&gt;</span>
+                <a href="reserva.html" class="paso-item">ASIENTOS</a>
+                <span class="flecha">&gt;</span>
+                <span class="paso-item activo">PAGO</span>
+                <span class="flecha">&gt;</span>
+                <span class="paso-item">CONFIRMACIÓN</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER DE PELÍCULA -->
+    <section class="banner-reserva-pelicula">
+        <div class="contenedor-reserva-info">
+            <div class="mini-poster-cuadrado">
+                <img src="assets/img/bannerRE_peli.jpg" alt="Resident Evil: Noche Cero">
+            </div>
+            <div class="detalles-reserva-pelicula">
+                <h1>Resident Evil: Noche Cero Dob</h1>
+                <p>CINEFILO METROMALL, SALA 8</p>
+                <p>sábado, 03/10/2026 03:50 p. m.</p>
+                <p>Clasificación: B15</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUERPO PRINCIPAL -->
+    <main class="contenedor-pago-principal">
+        
+        <!-- Banner Temporizador -->
+        <div class="banner-timer-azul" id="banner-timer">
+            <p id="timer-mensaje">El/los asiento/s que ha seleccionado se reservarán sólo durante 7 minutos. 
+               <strong>Tiempo restante: <span id="timer">07:00</span></strong>
+            </p>
+        </div>
+
+        <form id="form-pago" class="grid-pago-proporcional">
+            
+            <!-- ============ COLUMNA IZQUIERDA: FORMULARIO ============ -->
+            <div class="columna-formulario">
+                
+                <!-- CONTENEDOR ESTRICTO: Garantiza que TODO respete la línea verde -->
+                <div class="contenedor-ancho-estricto">
+                    
+                    <!-- Sección 1: Datos Personales -->
+                    <section class="bloque-pago">
+                        <h2 class="titulo-seccion">Datos personales</h2>
+                        
+                        <div class="fila-doble-inputs">
+                            <div class="grupo-campo">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" id="nombre" placeholder="ej. Juan" required>
+                            </div>
+                            <div class="grupo-campo">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" id="apellido" placeholder="ej. Pérez" required>
+                            </div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="email">Correo electrónico</label>
+                            <div class="input-con-icono">
+                                <input type="email" id="email" placeholder="ej. correo@ejemplo.com" required>
+                                <span class="icono-svg">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Sección 2: Forma de Pago -->
+                    <section class="bloque-pago">
+                        
+                        <!-- Título Independiente -->
+                        <h2 class="titulo-seccion" style="margin-bottom: 0.8rem;">Forma de pago</h2>
+                        
+                        <!-- Fila Dedicada a los Botones (Evita el salto y el bug flex) -->
+                        <div class="fila-acciones-rapidas">
+                            <button type="button" class="btn-subtle-outline" id="btn-cupon">
+                                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                                Aplicar cupón
+                            </button>
+                            <button type="button" class="btn-subtle-outline" id="btn-facturacion">
+                                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                Datos de facturación
+                            </button>
+                        </div>
+
+                        <!-- Paneles Extras (Flujo Normal sin alterar el ancho) -->
+                        <div id="contenedor-paneles-extra">
+                            <div id="panel-cupon" class="caja-desplegable-pago pos-extra flecha-cupon oculto">
+                                <div class="grupo-campo">
+                                    <label for="codigo-cupon">Ingrese el código de su cupón o promoción de Cinefilo</label>
+                                    <div class="input-con-boton">
+                                        <div class="input-con-icono contenedor-cupon-flex">
+                                            <input type="text" id="codigo-cupon" placeholder="Ej. CINE2026">
+                                        </div>
+                                        <button type="button" id="btn-aplicar-cupon" class="btn-aplicar-interno">Aplicar</button>
+                                    </div>
+                                    <p id="msg-feedback-cupon" class="msg-feedback oculto"></p>
+                                </div>
+                            </div>
+
+                            <div id="panel-facturacion" class="caja-desplegable-pago pos-extra flecha-facturacion oculto">
+                                <div class="grupo-campo">
+                                    <label for="razon-social">Razón Social o Nombre Completo</label>
+                                    <input type="text" id="razon-social" placeholder="Nombre para la factura">
+                                </div>
+                                <div class="fila-doble-inputs">
+                                    <div class="grupo-campo">
+                                        <label for="ruc">RUC / Cédula</label>
+                                        <input type="text" id="ruc" placeholder="Ej. 8-000-000">
+                                    </div>
+                                    <div class="grupo-campo">
+                                        <label for="dv">DV (Dígito Verificador)</label>
+                                        <input type="text" id="dv" placeholder="Ej. 12" maxlength="2">
+                                    </div>
+                                </div>
+                                <div class="grupo-campo">
+                                    <label for="direccion-fact">Dirección</label>
+                                    <input type="text" id="direccion-fact" placeholder="Dirección física">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Métodos de Pago -->
+                        <div class="metodos-pago-grid">
+                            <label class="opcion-pago-card activa" id="opcion-tarjeta">
+                                <input type="radio" name="metodo_pago" id="radio-tarjeta" value="tarjeta" checked class="radio-oculto">
+                                <img src="assets/img/spreedly.png" alt="Spreedly / Tarjeta de Crédito" class="img-metodo-pago">
+                            </label>
+                            <label class="opcion-pago-card" id="opcion-yappy">
+                                <input type="radio" name="metodo_pago" id="radio-yappy" value="yappy" class="radio-oculto">
+                                <img src="assets/img/yappy.png" alt="Yappy Panamá" class="img-metodo-pago">
+                            </label>
+                        </div>
+
+                        <!-- Paneles de Tarjeta / Yappy -->
+                        <div class="contenedor-superpuesto-pago">
+                            <div id="panel-tarjeta" class="caja-desplegable-pago pos-tarjeta">
+                                <div class="grupo-campo">
+                                    <label for="numero-tarjeta">Número de tarjeta</label>
+                                    <div class="input-con-icono">
+                                        <input type="text" id="numero-tarjeta" maxlength="19" placeholder="XXXX XXXX XXXX XXXX">
+                                        <span class="icono-svg">
+                                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="fila-doble-inputs">
+                                    <div class="grupo-campo">
+                                        <label for="vencimiento">Vencimiento (MM/YY)</label>
+                                        <input type="text" id="vencimiento" maxlength="5" placeholder="MM/YY">
+                                    </div>
+                                    <div class="grupo-campo">
+                                        <label for="cvv">CVV</label>
+                                        <div class="input-con-icono">
+                                            <input type="password" id="cvv" maxlength="4" placeholder="CVV">
+                                            <span class="icono-svg helper">
+                                                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="panel-yappy" class="caja-desplegable-pago pos-yappy oculto">
+                                <div class="grupo-campo">
+                                    <label for="numero-yappy">Número de celular Yappy</label>
+                                    <div class="input-con-icono">
+                                        <input type="text" id="numero-yappy" maxlength="8" placeholder="Ej. 60000000">
+                                        <span class="icono-svg">
+                                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <p class="instruccion-yappy">Recibirás una notificación instantánea en tu aplicación Yappy para confirmar el pago.</p>
+                            </div>
+                        </div>
+
+                        <!-- Términos y Condiciones -->
+                        <label class="checkbox-legal-fuera">
+                            <input type="checkbox" required>
+                            <span>He leído y acepto los <a href="#">Términos y Condiciones</a> y el <a href="#">Aviso de Privacidad</a></span>
+                        </label>
+                    </section>
+                </div>
+            </div>
+
+            <!-- ============ COLUMNA DERECHA: TICKET DE RESUMEN ============ -->
+            <aside class="columna-resumen">
+                <div class="card-ticket-negro">
+                    
+                    <div class="ticket-seccion-peli">
+                        <h3 class="peli-titulo-ticket">Resident Evil: Noche Cero</h3>
+                        <p class="ubicacion-ticket">CINEFILO METROMALL · SALA 8</p>
+                    </div>
+
+                    <dl class="ticket-meta">
+                        <div><dt>Fecha</dt><dd>Sáb 03/10/2026</dd></div>
+                        <div><dt>Hora</dt><dd>3:50 p. m.</dd></div>
+                        <div><dt>Sala</dt><dd>Sala 8 · 2D Digital</dd></div>
+                        <div><dt>Función</dt><dd>Doblada al español</dd></div>
+                        <div><dt>Clasificación</dt><dd>B15</dd></div>
+                    </dl>
+
+                    <div class="resumen-asientos-header">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M4 18v3h3v-3h10v3h3v-6H4v3zm15-8h-3V6a2 2 0 0 1-2-2H10a2 2 0 0 1-2 2v4H5a2 2 0 0 1-2 2v4h18v-4a2 2 0 0 1-2-2zM10 6h4v4h-4V6z"/></svg>
+                        <span id="cantidad-asientos-txt">x1 ASIENTO RESERVADO</span>
+                    </div>
+
+                    <div class="linea-corte-simple"></div>
+
+                    <div class="desglose-ticket">
+                        <div class="linea-desglose">
+                            <span id="label-boletos">x1 Boleto General Adulto</span>
+                            <span id="tk-boleto">$6.50</span>
+                        </div>
+                        <div class="linea-desglose">
+                            <span>Cargo por servicio online</span>
+                            <span id="tk-cargo">$0.40</span>
+                        </div>
+                        
+                        <div class="linea-desglose fila-cupon-oculta" id="tr-cupon">
+                            <span id="tk-descuento-label">Descuento aplicado</span>
+                            <span id="tk-descuento" class="text-verde">-$0.00</span>
+                        </div>
+
+                        <div class="linea-desglose">
+                            <span>Subtotal</span>
+                            <span id="tk-subtotal">$6.90</span>
+                        </div>
+                        <div class="linea-desglose">
+                            <span>ITBMS 7%</span>
+                            <span id="tk-itbms">$0.48</span>
+                        </div>
+                    </div>
+
+                    <div class="linea-corte-simple"></div>
+
+                    <div class="footer-ticket-total">
+                        <div class="etiqueta-total-grupo">
+                            <span class="label-total">Monto total</span>
+                            <span class="subtext-impuestos">ITBMS incluido</span>
+                        </div>
+                        <span class="monto-total-grande" id="tk-total">$7.38</span>
+                    </div>
+                </div>
+            </aside>
+        </form>
+    </main>
+
+    <!-- BARRA STICKY INFERIOR -->
+    <div class="barra-sticky-resumen">
+        <div class="contenedor-sticky-interior">
+            <div class="fila-info-resumen">
+                <span class="resumen-tickets-info">TOTAL A PAGAR</span>
+                <span class="monto-total-resumen" id="total-sticky">$7.38</span>
+            </div>
+            <div class="fila-botones-resumen">
+                <button type="button" class="btn-accion-regresar" onclick="window.location.href='reserva.html'">
+                    REGRESAR
+                </button>
+                <button type="submit" form="form-pago" class="btn-accion-continuar" id="btn-continuar-pago">
+                    CONFIRMAR Y PAGAR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/pago.js"></script>
+</body>
+</html>
