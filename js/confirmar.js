@@ -1,144 +1,135 @@
-/* Confirmación de compra CINEFILO.
-   Lee la confirmación generada en js/pago.js, completa el hero y el ticket,
-   genera el código QR y gestiona las acciones posteriores al pago. */
+document.addEventListener("DOMContentLoaded", () => {
 
-const CONFIRMACION_DEMO = {
-  codigo: 'CNF-89234',
-  fechaCompra: '',
-  puntosMembresia: false,
-  cupon: '',
-  invitado: {
-    nombre: 'Cliente CINEFILO',
-    correo: '',
-    tarjetaClub: ''
-  },
-  orden: {
-    pelicula: 'Resident Evil: Noche Cero Dob',
-    cineSala: 'CINEFILO METROMALL, SALA 8',
-    fechaHora: 'sábado, 03/10/2026 03:50 p. m.',
-    clasificacion: 'Clasificación: B15',
-    cantidades: { adulto: 1, nino: 0, tercera: 0, discap: 0 },
-    totalBoletos: 1,
-    asientos: ['A3'],
-    total: 6.90
-  }
-};
+    /* =====================================================
+       0. UTILIDADES Y DATOS DE RESPALDO CORREGIDOS
+       ===================================================== */
+    const RESPALDO = {
+        codigo: "CF-2026-9841",
+        nombre: "Ernesto",
+        apellido: "Botacio",
+        email: "usuario@correo.com",
+        metodo: "Visa **** 4242",
+        cupon: "",
+        boleto: 650,
+        cargo: 40,
+        descuento: 0,
+        subtotal: 690,  // $6.50 + $0.40
+        itbms: 48,      // 7% de $6.90 = $0.48
+        total: 738,     // Total exacto: $7.38
+        asientos: ["Fila G · Asiento 1", "Fila G · Asiento 2"]
+    };
 
-document.addEventListener('DOMContentLoaded', () => {
-  const confirmacion = leerConfirmacionDesdeSesion();
-  pintarConfirmacion(confirmacion);
-  configurarAcciones(confirmacion);
-});
+    const formatoMoneda = (centavos) => `$${(centavos / 100).toFixed(2)}`;
 
-/* ---------- Datos de la compra ---------- */
+    const setTexto = (id, texto) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = texto;
+    };
 
-function leerConfirmacionDesdeSesion() {
-  try {
-    const crudo = sessionStorage.getItem('confirmacionCinefilo');
-    if (!crudo) return CONFIRMACION_DEMO;
-    const confirmacion = JSON.parse(crudo);
-    if (!confirmacion || !confirmacion.orden || !confirmacion.codigo) return CONFIRMACION_DEMO;
-    return confirmacion;
-  } catch (error) {
-    return CONFIRMACION_DEMO;
-  }
-}
-
-function obtenerSala(orden) {
-  const coincidencia = String(orden.cineSala || '').match(/SALA\s+[A-Z0-9]+/i);
-  return coincidencia ? coincidencia[0].toUpperCase() : (orden.cineSala || 'SALA 1');
-}
-
-function obtenerFila(asientos) {
-  const filas = [];
-  asientos.forEach(asiento => {
-    const fila = String(asiento).match(/^\D+/);
-    if (fila && !filas.includes(fila[0].toUpperCase())) filas.push(fila[0].toUpperCase());
-  });
-  if (filas.length === 0) return 'FILA A';
-  return filas.length === 1 ? `FILA ${filas[0]}` : `FILAS ${filas.join(', ')}`;
-}
-
-function obtenerNumerosAsientos(asientos) {
-  const numeros = asientos
-    .map(asiento => String(asiento).match(/\d+/))
-    .filter(Boolean)
-    .map(coincidencia => coincidencia[0]);
-  return numeros.length > 0 ? numeros.join(', ') : '1';
-}
-
-function pintarConfirmacion(confirmacion) {
-  const orden = confirmacion.orden;
-  const invitado = confirmacion.invitado || {};
-  const asientos = Array.isArray(orden.asientos) ? orden.asientos : ['A3'];
-
-  document.getElementById('codigo-reserva').textContent = confirmacion.codigo;
-  document.getElementById('ticket-pelicula').textContent = orden.pelicula;
-  document.getElementById('ticket-clasificacion').textContent = orden.clasificacion || '';
-  document.getElementById('ticket-sala').textContent = obtenerSala(orden);
-  document.getElementById('ticket-fila').textContent = obtenerFila(asientos);
-  document.getElementById('ticket-asientos').textContent = `ASIENTOS ${obtenerNumerosAsientos(asientos)}`;
-  document.getElementById('ticket-fecha').textContent = orden.fechaHora;
-  document.getElementById('ticket-boletos').textContent =
-    `${orden.totalBoletos} ${Number(orden.totalBoletos) === 1 ? 'boleto' : 'boletos'}`;
-  document.getElementById('ticket-titular').textContent = invitado.nombre || 'Cliente invitado';
-  document.getElementById('ticket-total').textContent = `Total pagado: $${Number(orden.total).toFixed(2)}`;
-
-  generarCodigoQR(confirmacion, asientos);
-}
-
-/* ---------- Código QR ---------- */
-
-function generarCodigoQR(confirmacion, asientos) {
-  const orden = confirmacion.orden;
-  const contenido = [
-    'CINEFILO',
-    `Reserva: ${confirmacion.codigo}`,
-    `Pelicula: ${orden.pelicula}`,
-    `Cine: ${orden.cineSala}`,
-    `Fecha: ${orden.fechaHora}`,
-    `Asientos: ${asientos.join(', ')}`,
-    `Total: $${Number(orden.total).toFixed(2)}`
-  ].join('\n');
-
-  const imagenQR = document.getElementById('img-qr');
-  const respaldoQR = document.getElementById('qr-respaldo');
-
-  imagenQR.onerror = () => {
-    imagenQR.classList.add('oculto');
-    document.getElementById('qr-respaldo-codigo').textContent = confirmacion.codigo;
-    respaldoQR.classList.remove('oculto');
-  };
-
-  imagenQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data=${encodeURIComponent(contenido)}`;
-}
-
-/* ---------- Acciones posteriores ---------- */
-
-function mostrarMensaje(texto, esError) {
-  const mensaje = document.getElementById('mensaje-accion');
-  mensaje.textContent = texto;
-  mensaje.classList.toggle('error', Boolean(esError));
-}
-
-function configurarAcciones(confirmacion) {
-  document.getElementById('btn-imprimir').addEventListener('click', () => {
-    window.print();
-  });
-
-  const campoCorreo = document.getElementById('correo-boletos');
-  campoCorreo.value = (confirmacion.invitado && confirmacion.invitado.correo) || '';
-
-  document.getElementById('form-correo').addEventListener('submit', evento => {
-    evento.preventDefault();
-    const correo = campoCorreo.value.trim();
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
-      mostrarMensaje('Ingresa un correo electrónico válido para enviar los boletos.', true);
-      campoCorreo.focus();
-      return;
+    function leerPedido() {
+        try {
+            const crudo = sessionStorage.getItem("cinefilo_pedido");
+            return crudo ? JSON.parse(crudo) : null;
+        } catch (e) {
+            return null;
+        }
     }
 
-    mostrarMensaje(`Boletos enviados a ${correo}.`, false);
-  });
-}
+    function pintarResumen() {
+        const guardado = leerPedido() || {};
+        const p = Object.assign({}, RESPALDO, guardado);
+
+        const titular = `${guardado.nombre || ""} ${guardado.apellido || ""}`.trim()
+            || `${RESPALDO.nombre} ${RESPALDO.apellido}`;
+        const codigo = guardado.codigo || RESPALDO.codigo;
+
+        setTexto("cf-email", guardado.email || RESPALDO.email);
+        setTexto("cf-titular", titular);
+        setTexto("cf-metodo", p.metodo);
+        setTexto("cf-codigo", codigo);
+
+        setTexto("cf-boleto", formatoMoneda(p.boleto));
+        setTexto("cf-cargo", formatoMoneda(p.cargo));
+        setTexto("cf-descuento-label", p.cupon ? `Cupón ${p.cupon}` : "Cupón o promoción");
+        setTexto("cf-descuento", p.descuento > 0 ? `-${formatoMoneda(p.descuento)}` : "—");
+        setTexto("cf-subtotal", formatoMoneda(p.subtotal));
+        setTexto("cf-itbms", formatoMoneda(p.itbms));
+        setTexto("cf-total", formatoMoneda(p.total));
+        setTexto("cf-total-sticky", formatoMoneda(p.total));
+
+        const listaEl = document.getElementById("cf-lista-asientos");
+        if (listaEl && Array.isArray(p.asientos)) {
+            listaEl.innerHTML = "";
+            p.asientos.forEach((asiento) => {
+                const li = document.createElement("li");
+                li.textContent = asiento;
+                listaEl.appendChild(li);
+            });
+        }
+
+        const qr = document.getElementById("cf-qr");
+        if (qr) {
+            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data=${encodeURIComponent(codigo)}`;
+        }
+    }
+
+    const video = document.getElementById("video-corriendo");
+    if (video) {
+        const reproducir = video.play();
+        if (reproducir && typeof reproducir.catch === "function") reproducir.catch(() => {});
+
+        const fuente = video.querySelector("source");
+        const avisarError = () => {
+            console.warn("No se pudo cargar el video de carga en: " + (fuente ? fuente.getAttribute("src") : ""));
+            const caja = video.closest(".contenedor-mascota-carga");
+            if (caja) caja.style.display = "none";
+        };
+
+        video.addEventListener("error", avisarError);
+        if (fuente) fuente.addEventListener("error", avisarError);
+    }
+
+    const zonaCarga = document.getElementById("zona-carga");
+    const zonaResumen = document.getElementById("zona-resumen");
+    const pasos = Array.from(document.querySelectorAll("#carga-pasos li"));
+
+    const reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const DURACION_PASO = reducirMovimiento ? 200 : 1200;
+
+    function mostrarResumen() {
+        if (zonaCarga) zonaCarga.classList.add("terminada");
+        if (zonaResumen) zonaResumen.classList.add("listo");
+        window.scrollTo(0, 0);
+
+        const titulo = document.getElementById("titulo-confirmacion");
+        if (titulo) titulo.focus({ preventScroll: true });
+    }
+
+    function ejecutarPaso(i) {
+        if (i >= pasos.length) {
+            setTimeout(mostrarResumen, reducirMovimiento ? 0 : 400);
+            return;
+        }
+
+        pasos[i].classList.add("activo");
+
+        setTimeout(() => {
+            pasos[i].classList.remove("activo");
+            pasos[i].classList.add("hecho");
+            ejecutarPaso(i + 1);
+        }, DURACION_PASO);
+    }
+
+    pintarResumen();
+
+    if (pasos.length) {
+        ejecutarPaso(0);
+    } else {
+        mostrarResumen();
+    }
+
+    const btnImprimir = document.getElementById("btn-imprimir");
+    if (btnImprimir) {
+        btnImprimir.addEventListener("click", () => window.print());
+    }
+});
