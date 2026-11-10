@@ -3,124 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINEFILO - Confirmación de Compra</title>
+    <title>CINEFILO - ¡Reserva Confirmada!</title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/reserva.css">
     <link rel="stylesheet" href="css/confirmar.css">
+    <script>document.documentElement.classList.add("js");</script>
 </head>
-<body class="body-confirmar">
+<body class="body-confirmacion">
 
-    <!-- NAVBAR SUPERIOR: LOGO IZQUIERDA, MIGAS DE PAN DERECHA -->
+    <!-- HEADER DEL PROYECTO -->
     <header class="header-reserva">
         <div class="contenedor-nav-reserva">
             <a href="index.html" class="logo">CINE<span>FILO</span></a>
-            <nav class="pasos-compra-header" aria-label="Pasos de la compra">
-                <span class="paso-item completado">ENTRADAS</span>
+            <div class="pasos-compra-header">
+                <a href="index.html" class="paso-item">ENTRADAS</a>
                 <span class="flecha">&gt;</span>
-                <span class="paso-item completado">ASIENTOS</span>
+                <a href="reserva.html" class="paso-item">ASIENTOS</a>
                 <span class="flecha">&gt;</span>
-                <span class="paso-item completado">PAGO</span>
+                <a href="pago.html" class="paso-item">PAGO</a>
                 <span class="flecha">&gt;</span>
                 <span class="paso-item activo">CONFIRMACIÓN</span>
-            </nav>
+            </div>
         </div>
     </header>
 
-    <!-- HERO BANNER DE PELÍCULA -->
-    <section class="banner-reserva-pelicula">
-        <div class="contenedor-reserva-info">
-            <div class="mini-poster-cuadrado">
-                <img src="assets/img/poster-resident-evil.jpg" alt="Poster Resident Evil" onerror="this.src='https://picsum.photos/id/1015/120/170'">
-            </div>
-            <div class="detalles-reserva-pelicula">
-                <h1 id="reserva-titulo-pelicula">Resident Evil: Noche Cero Dob</h1>
-                <p class="cine-sala" id="reserva-cine-sala">CINEFILO METROMALL, SALA 8</p>
-                <p class="fecha-hora" id="reserva-fecha-hora">sábado, 03/10/2026 03:50 p. m.</p>
-                <p class="clasificacion" id="reserva-clasificacion">Clasificación: B15</p>
-            </div>
-        </div>
-    </section>
+    <main class="contenedor-confirmacion-principal">
 
-    <main class="contenedor-confirmar">
+        <!-- PANTALLA DE CARGA -->
+        <!-- PANTALLA DE CARGA (CINEFILITO EN WEBM TRANSPARENTE) -->
+        <section class="zona-carga" id="zona-carga" aria-live="polite">
+            <div class="contenedor-mascota-carga">
+                <video id="video-corriendo" class="video-mascota" autoplay loop muted playsinline preload="auto">
+                    <!-- 1. WebM transparente de alta calidad -->
+                    <source src="assets/img/cinefilitocorriendo.webm" type="video/webm">
+                    <!-- 2. Respaldo MP4 por si acaso -->
+                    <source src="assets/img/cinefilitocorriendo.mp4" type="video/mp4">
+                </video>
+            </div>
 
-        <!-- MENSAJE DE ÉXITO -->
-        <section class="tarjeta-exito">
-            <span class="icono-exito" aria-hidden="true">
-                <svg viewBox="0 0 52 52">
-                    <circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" stroke-width="3"></circle>
-                    <path d="M15 27l8 8 15-16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-            </span>
-            <h1>Pago aprobado</h1>
-            <p>Tu compra fue confirmada. Guarda tu código de reserva para retirar los boletos.</p>
+            <h2 class="carga-titulo">Confirmando tu reserva...</h2>
+            <p class="carga-sub">Esto toma solo unos segundos. No cierres la ventana.</p>
+
+            <ol class="carga-pasos" id="carga-pasos">
+                <li>Verificando tu pago</li>
+                <li>Reservando tus butacas</li>
+                <li>Generando tus entradas</li>
+            </ol>
         </section>
 
-        <!-- TICKET DE COMPRA -->
-        <section class="ticket-digital" id="ticket-digital" aria-label="Ticket de compra">
-            <div class="ticket-encabezado">
-                <span class="logo-ticket-mini">CINE<span>FILO</span></span>
-                <span class="etiqueta-boleto">BOLETO DIGITAL</span>
+        <!-- RESUMEN PLANO DE LA RESERVA -->
+        <div class="zona-resumen" id="zona-resumen">
+
+            <!-- Solo se ve al imprimir / guardar PDF -->
+            <div class="solo-impresion encabezado-impresion">
+                <span class="marca-impresion">CINE<span>FILO</span></span>
+                <span>Boleto de entrada · Reserva confirmada</span>
             </div>
 
-            <div class="ticket-principal">
-                <h2 id="ticket-pelicula">Resident Evil: Noche Cero Dob</h2>
-                <p class="dato-ticket" id="ticket-clasificacion">Clasificación: B15</p>
-                <p class="dato-ticket" id="ticket-sala">SALA 8</p>
-                <p class="dato-ticket fuerte" id="ticket-fila">FILA A</p>
-                <p class="dato-ticket fuerte" id="ticket-asientos">ASIENTOS 3</p>
-                <p class="dato-ticket" id="ticket-fecha">sábado, 03/10/2026 03:50 p. m.</p>
-            </div>
+            <!-- BOLETO HORIZONTAL -->
+            <article class="ticket-plano-horizontal" aria-label="Boleto de entrada">
 
-            <div class="ticket-talon">
-                <div class="zona-qr">
-                    <img id="img-qr" alt="Código QR del boleto">
-                    <div id="qr-respaldo" class="qr-respaldo oculto">
-                        <span class="etiqueta-qr">Código de reserva</span>
-                        <strong id="qr-respaldo-codigo">CNF-89234</strong>
+                <!-- COLUMNA IZQUIERDA -->
+                <div class="ticket-izq">
+                    
+                    <div class="ticket-superior-grid">
+                        <div class="ticket-poster-recto">
+                            <img src="assets/img/bannerRE_peli.jpg" alt="Póster Resident Evil" class="img-poster">
+                        </div>
+
+                        <div class="ticket-info-peli">
+                            <div>
+                                <h1 class="ticket-titulo" id="titulo-confirmacion" tabindex="-1">Resident Evil: Noche Cero</h1>
+                                <p class="ticket-sede">Cinefilo Metromall</p>
+                                <p class="ticket-meta-plana">
+                                    <span>Clasificación B15</span>
+                                    <span class="separador-pipe">|</span>
+                                    <span>2D Doblada</span>
+                                </p>
+                            </div>
+
+                            <div class="grid-datos-funcion">
+                                <div class="item-dato">
+                                    <span class="label-dato">FECHA</span>
+                                    <span class="valor-dato">Sáb 3 Oct 2026</span>
+                                </div>
+                                <div class="item-dato">
+                                    <span class="label-dato">HORA</span>
+                                    <span class="valor-dato">3:50 p. m.</span>
+                                </div>
+                                <div class="item-dato">
+                                    <span class="label-dato">SALA</span>
+                                    <span class="valor-dato">Sala 8</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ASIENTOS RESERVADOS (Van saliendo verticalmente hacia abajo) -->
+                    <div class="bloque-asientos-plano">
+                        <span class="label-dato">ASIENTOS RESERVADOS</span>
+                        <ul class="lista-asientos-limpia" id="cf-lista-asientos">
+                            <li>Fila G · Asiento 1</li>
+                            <li>Fila G · Asiento 2</li>
+                        </ul>
+                    </div>
+
+                    <!-- MENSAJE DE CONFIRMACIÓN (En 2 líneas limpias, empujado suavemente si hay más asientos) -->
+                    <div class="nota-confirmacion-inferior">
+                        <p class="titulo-reserva-exito">¡Reserva confirmada!</p>
+                        <p class="sub-reserva-exito">Enviamos tus entradas a <strong id="cf-email" class="email-usuario-seguro">usuario@correo.com</strong>.</p>
                     </div>
                 </div>
-                <div class="datos-talon">
-                    <span class="etiqueta-qr">Código de reserva</span>
-                    <strong class="codigo-grande" id="codigo-reserva">CNF-89234</strong>
-                    <p class="resumen-talon">
-                        <span id="ticket-boletos">1 boleto</span>
-                        <span id="ticket-titular">Cliente CINEFILO</span>
-                        <span id="ticket-total">Total pagado: $6.90</span>
-                    </p>
-                    <p class="nota-talon">
-                        Presenta este ticket en el acceso de la sala. El código QR se validará al ingresar.
-                    </p>
+
+                <!-- COLUMNA DERECHA: QR + Resumen de Pago -->
+                <div class="ticket-der">
+                    <div class="ticket-acceso">
+                        <img id="cf-qr" class="qr-img" width="85" height="85"
+                             src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data=CF-2026-9841"
+                             alt="Código QR de acceso a sala">
+                        <div class="acceso-texto">
+                            <span class="label-dato">CÓDIGO DE RESERVA</span>
+                            <strong class="acceso-codigo" id="cf-codigo">CF-2026-9841</strong>
+                            <span class="acceso-ayuda">Muestra este código en el acceso a sala.</span>
+                        </div>
+                    </div>
+
+                    <div class="recibo-separador-qr"></div>
+
+                    <h2 class="recibo-titulo">Resumen del pago</h2>
+                    <dl class="recibo-lista">
+                        <div class="recibo-fila"><dt>Titular</dt><dd id="cf-titular">Ernesto Botacio</dd></div>
+                        <div class="recibo-fila"><dt>Método</dt><dd id="cf-metodo">Visa **** 4242</dd></div>
+                        <div class="recibo-sep"></div>
+                        <div class="recibo-fila"><dt>1x Boleto general adulto</dt><dd id="cf-boleto">$6.50</dd></div>
+                        <div class="recibo-fila"><dt>Cargo por servicio online</dt><dd id="cf-cargo">$0.40</dd></div>
+                        <div class="recibo-fila"><dt id="cf-descuento-label">Cupón o promoción</dt><dd id="cf-descuento">—</dd></div>
+                        <div class="recibo-fila suave"><dt>Subtotal (sin ITBMS)</dt><dd id="cf-subtotal">$6.90</dd></div>
+                        <div class="recibo-fila suave"><dt>ITBMS 7%</dt><dd id="cf-itbms">$0.48</dd></div>
+                    </dl>
+                    <div class="recibo-total">
+                        <span>Total pagado</span>
+                        <strong id="cf-total">$7.38</strong>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Solo se ve al imprimir / guardar PDF -->
+            <p class="solo-impresion nota-impresion">Presenta este boleto impreso o el código QR desde tu teléfono en el acceso a sala.</p>
+
+            <!-- BARRA STICKY INFERIOR -->
+            <div class="barra-sticky-resumen">
+                <div class="contenedor-sticky-interior">
+                    <div class="fila-info-resumen">
+                        <span class="resumen-tickets-info">TOTAL PAGADO</span>
+                        <span class="monto-total-resumen" id="cf-total-sticky">$7.38</span>
+                    </div>
+                    <div class="fila-botones-resumen">
+                        <a href="index.html" class="btn-accion-regresar">REGRESAR A LA CARTELERA</a>
+                        <button type="button" class="btn-accion-imprimir" id="btn-imprimir">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                            IMPRIMIR BOLETO
+                        </button>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <!-- ACCIONES -->
-        <section class="acciones-confirmacion" aria-label="Acciones de la compra">
-            <button type="button" class="btn-accion" id="btn-imprimir">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M6 9V3h12v6"></path>
-                    <rect x="3" y="9" width="18" height="8" rx="2"></rect>
-                    <path d="M6 15h12v6H6z"></path>
-                </svg>
-                Imprimir Ticket
-            </button>
-
-            <form class="form-correo" id="form-correo" novalidate>
-                <input type="email" id="correo-boletos" placeholder="Enviar boletos a mi correo">
-                <button type="submit" class="btn-accion btn-secundario">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                        <path d="M3 7l9 6 9-6"></path>
-                    </svg>
-                    Enviar por correo
-                </button>
-            </form>
-
-            <a href="index.html" class="btn-accion btn-secundario">Volver a la cartelera</a>
-
-            <span class="mensaje-accion" id="mensaje-accion" role="status" aria-live="polite"></span>
-        </section>
-
+        </div>
     </main>
 
     <script src="js/confirmar.js"></script>
